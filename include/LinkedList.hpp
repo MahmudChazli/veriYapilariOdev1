@@ -35,7 +35,7 @@ private:
   friend inline void printAll(LinkedList& l);
 };
 
-// took me a while to relise that all I needed to do for the
+// took me a while to realise that all I needed to do for the
 // print function to compile was add the inline keyword because of ODR
 // (it's totaly my fault but still it's 1am and I don't want to take the blame)
 inline void print(Dugum* d) {
