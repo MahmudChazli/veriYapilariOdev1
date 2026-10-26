@@ -14,8 +14,6 @@ public:
   using Matris = int;
   void add(Matris veri);
   void remove();
-  Dugum* getOnce()  const { return m_ilk->once; }
-  Dugum* getSonra() const { return m_ilk->sonra; }
   
   // in the futre I might change it to be a circular dynamic list
   // but for now it's only a two way dynamic list
