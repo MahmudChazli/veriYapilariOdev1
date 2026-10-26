@@ -19,8 +19,8 @@ private:
   Dugum* once  {};
 
   friend LinkedList;
-  friend inline void printAll(LinkedList& l);
-  friend inline void print(Dugum* l);
+  friend inline void printAll(const LinkedList& l);
+  friend inline void print(const Dugum* l);
 };
 
 #endif

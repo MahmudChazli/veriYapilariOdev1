@@ -30,13 +30,13 @@ public:
 private:
   Dugum* m_ilk {};
 
-  friend inline void printAll(LinkedList& l);
+  friend inline void printAll(const LinkedList& l);
 };
 
 // took me a while to realise that all I needed to do for the
 // print function to compile was add the inline keyword because of ODR
 // (it's totaly my fault but still it's 1am and I don't want to take the blame)
-inline void print(Dugum* d) {
+inline void print(const Dugum* d) {
   std::cout << std::setw(20);
   
   std::cout << "\n********************\n";
@@ -51,7 +51,7 @@ inline void print(Dugum* d) {
   std::cout << "--------------------\n";
 }
 
-inline void printAll(LinkedList& l) {
+inline void printAll(const LinkedList& l) {
   Dugum* gec {l.m_ilk};
   while(gec) {
     print(gec);
