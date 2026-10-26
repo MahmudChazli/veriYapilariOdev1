@@ -3,7 +3,7 @@
 using Matris = int;
 void LinkedList::add(Matris matris) {
   if(!m_ilk) {
-    m_ilk       = new Dugum(matris);
+    m_ilk = new Dugum(matris);
   }
   Dugum* gec{m_ilk};
   
