@@ -1,6 +1,5 @@
 #include "../include/linkedList.hpp"
 
-using Matris = int;
 void LinkedList::add(Matris matris) {
   if(!m_ilk) {
     m_ilk = new Dugum(matris);

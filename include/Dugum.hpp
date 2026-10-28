@@ -1,18 +1,19 @@
 #ifndef DUGUM
 #define DUGUM
+#include "Matris.hpp"
 
 class LinkedList;
 
 class Dugum {
 public:
   Dugum() = default;
-  Dugum(int matris) {
+  Dugum(Matris matris) {
     m_matris = matris;
   }
 
 private:
   // this is just a place holder for the Matris class that I would have later
-  using Matris = int;
+  
   Matris m_matris {};
   
   Dugum* sonra {};

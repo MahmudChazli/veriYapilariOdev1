@@ -2,6 +2,7 @@
 #define LINKED_LIST
 #include "Common.hpp"
 #include "Dugum.hpp"
+#include "Matris.hpp"
 
 class LinkedList {
 public:
@@ -10,7 +11,6 @@ public:
     m_ilk = new Dugum(matris);
   }
 
-  using Matris = int;
   void add(Matris veri);
   void remove();
   Dugum* getIlk() const { return m_ilk; };
