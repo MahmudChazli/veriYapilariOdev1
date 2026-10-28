@@ -2,7 +2,8 @@
 #define LINKED_LIST
 #include "Common.hpp"
 #include "Dugum.hpp"
-#include "Matris.hpp"
+
+class Matris;
 
 class LinkedList {
 public:
