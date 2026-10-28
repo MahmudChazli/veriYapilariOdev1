@@ -5,3 +5,7 @@
 
 .o ve .exe dosyalarin silmek icin:
   mingw32-make clean
+
+
+Sources:
+  Random.h "https://www.learncpp.com/cpp-tutorial/global-random-numbers-random-h/"
