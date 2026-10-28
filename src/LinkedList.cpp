@@ -1,15 +1,15 @@
 #include "../include/linkedList.hpp"
 
-void LinkedList::add(Matris matris) {
+void LinkedList::add() {
   if(!m_ilk) {
-    m_ilk = new Dugum(matris);
+    m_ilk = new Dugum();
   }
   Dugum* gec{m_ilk};
   
   while(gec->sonra) {
     gec = gec->sonra;
   }
-  gec->sonra       = new Dugum(matris);
+  gec->sonra       = new Dugum();
   gec->sonra->once = gec;
 }
 

@@ -7,12 +7,11 @@ class Matris;
 
 class LinkedList {
 public:
-  LinkedList() = default;
-  LinkedList(const int& matris) {
-    m_ilk = new Dugum(matris);
+  LinkedList() {
+    m_ilk = new Dugum();
   }
 
-  void add(Matris veri);
+  void add();
   void remove();
   Dugum* getIlk() const { return m_ilk; };
   
