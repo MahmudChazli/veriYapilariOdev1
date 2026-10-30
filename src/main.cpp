@@ -1,4 +1,4 @@
-#include "../include/Matris.hpp"
+#include "../include/Common.hpp"
 
 int main() {
   Matris m;

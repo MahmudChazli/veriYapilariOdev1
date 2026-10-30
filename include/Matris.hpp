@@ -1,6 +1,5 @@
 #ifndef MATRIS
 #define MATRIS
-#include "Random.h" // from learncpp.com
 #include "Common.hpp"
 
 class Matris {
@@ -15,7 +14,7 @@ public:
 
   // to print each matris we would need two for loops that's it
   void print();
-  
+
   void test_print() {
     std::cout << m_m << ' ' << m_n << '\n';
     std::cout << m_m * m_n << '\n';
