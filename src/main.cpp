@@ -1,15 +1,8 @@
-#include "../include/Common.hpp"
-#include "../include/LinkedList.hpp"
+#include "../include/Matris.hpp"
 
 int main() {
-  LinkedList l{11};
-  l.add(22);
-  l.add(33);
-  l.add(44);
-  l.add(55);
-
-  printAll(l);
-
+  Matris m;
+  m.test_print();
   
   return 0;
 }
