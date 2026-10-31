@@ -1,6 +1,7 @@
 #ifndef DUGUM
 #define DUGUM
 #include "Common.hpp"
+#include "Matris.hpp"
 
 class LinkedList;
 

@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 #include "Dugum.hpp"
-#include "Matris.hpp"
 #include "Random.h" // from learncpp.com
 
 #endif

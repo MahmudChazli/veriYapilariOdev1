@@ -10,11 +10,15 @@ lib/main.o: src/main.cpp # the src/main.cpp makes it so that it would need to ha
 	@echo "compiling main"
 	g++ $(VFlag) -c src/main.cpp -o lib/main.o
 
-helpers: lib/LinkedList.o
+helpers: lib/Matris.o lib/LinkedList.o 
 
 lib/LinkedList.o: src/LinkedList.cpp
 	@echo "comliling LinkedList"
 	g++ $(VFlag) -c src/LinkedList.cpp -o lib/LinkedList.o
+
+lib/Matris.o: src/Matris.cpp
+	@echo "comliling LinkedList"
+	g++ $(VFlag) -c src/Matris.cpp -o lib/LinkedList.o
 
 clean: # doesn't allow the normal slashes
 	@echo "removing .o and program files"
