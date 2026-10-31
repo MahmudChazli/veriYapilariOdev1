@@ -1,4 +1,5 @@
 #include "../include/Common.hpp"
+#include "../include/Matris.hpp"
 
 void Matris::generate(int* matris, std::size_t& len, std::size_t& width) {
   std::size_t newLen {};
