@@ -13,7 +13,6 @@ public:
     generate(m_matris, m_len, m_width);
   };
 
-  // to print each matris we would need two for loops that's it
   void print();
 
   void test_print() {
@@ -31,8 +30,6 @@ private:
   std::size_t m_width {};
   std::size_t m_len {m_height * m_width};
 
-  // with this if we want to print the matris we would print every
-  // column until !(i < m) and then we would go to the other row
   // (Source - https://stackoverflow.com/q/7684712)
   int* m_matris { new int[m_len] };
 
