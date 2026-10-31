@@ -1,6 +1,7 @@
 #ifndef LINKED_LIST
 #define LINKED_LIST
 #include "Common.hpp"
+#include "Dugum.hpp"
 
 class Matris;
 

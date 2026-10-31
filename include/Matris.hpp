@@ -1,6 +1,7 @@
 #ifndef MATRIS
 #define MATRIS
 #include "Common.hpp"
+#include "Random.h"
 
 class Matris {
 public:
