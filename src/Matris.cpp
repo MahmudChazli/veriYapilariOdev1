@@ -1,7 +1,7 @@
 #include "../include/Common.hpp"
 #include "../include/Matris.hpp"
 
-void Matris::generate(int* matris, std::size_t& len, std::size_t& width, std::size_t& height) {
+void Matris::generate(int* &matris, std::size_t& len, std::size_t& width, std::size_t& height) {
   std::size_t newLen {};
   for(std::size_t i{}; i < len; ++i) { // this is a timer (the teacher has different sizes of matris)
 
@@ -20,8 +20,8 @@ void Matris::generate(int* matris, std::size_t& len, std::size_t& width, std::si
   height = width = static_cast<std::size_t>(std::ceil(sqrt(len)));
 
   // this could be made into a helper function
-  int* new_matris {new int[len]};
-  for(int i{}; i < len; ++i) {
+  int* new_matris { new int[len] };
+  for(std::size_t i{}; i < len; ++i) {
     new_matris[i] = matris[i];
   }
   delete[] matris;

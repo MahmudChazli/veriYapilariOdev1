@@ -6,10 +6,15 @@
 class Matris {
 public:
 
-  Matris(std::size_t height = 10, std::size_t width = 10)
-  : m_height {height}
-  , m_width {width}
-  {
+  Matris(std::size_t height = 10, std::size_t width = 10) {
+    // for now I'm just gonna use an assert to check the height and width
+    assert(height <= 10 && width <= 10 && "height/width is above 10");
+    assert(height >= 0 && width >= 0 && "height/width is negative");
+
+    m_height = height;
+    m_width  = width;
+    m_len = height * width;
+    m_matris = new int[m_len];
     generate(m_matris, m_len, m_width, m_height);
   };
 
@@ -34,7 +39,7 @@ private:
   // (Source - https://stackoverflow.com/q/7684712)
   int* m_matris { new int[m_len] };
 
-  void generate(int* matris, std::size_t& len, std::size_t& width, std::size_t& height);
+  void generate(int* &matris, std::size_t& len, std::size_t& width, std::size_t& height);
 };
 
 #endif
