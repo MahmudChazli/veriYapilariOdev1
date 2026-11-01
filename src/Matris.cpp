@@ -19,6 +19,14 @@ void Matris::generate(int* matris, std::size_t& len, std::size_t& width, std::si
   len = newLen;
   height = width = static_cast<std::size_t>(std::ceil(sqrt(len)));
 
+  // this could be made into a helper function
+  int* new_matris {new int[len]};
+  for(int i{}; i < len; ++i) {
+    new_matris[i] = matris[i];
+  }
+  delete[] matris;
+  matris = new_matris;
+
   // I'll do this later (I'm not sure what I need to do here)
   switch(len) {
   case 4:
