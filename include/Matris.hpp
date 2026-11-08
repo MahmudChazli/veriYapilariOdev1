@@ -18,6 +18,11 @@ public:
     generate(m_matris, m_len, m_width, m_height);
   };
 
+  // for the column delete we would add m_width after every deleted variable
+  void deleteColumn();
+  
+  void deleteRow();
+
   void print();
 
   void test_print() {
