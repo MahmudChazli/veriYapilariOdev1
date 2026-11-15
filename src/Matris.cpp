@@ -12,7 +12,7 @@ void Matris::deleteColumn(const int& column, int* &matris, std::size_t& height, 
   // this means that this is the last thing on the matris
   assert(m_width > 1 && "the caller didn't delete the dugum before deleteColumn() was called");
   
-  std::size_t deleteIndex {column - 1};
+  int deleteIndex {column - 1};
   int* new_matris {new int[len - height]};
   for(std::size_t i{0}, newMatrisIndex{0}; i < len; ++i) {
 
