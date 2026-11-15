@@ -1,5 +1,6 @@
 #include "../include/Common.hpp"
 #include "../include/Matris.hpp"
+#include <windows.h>
 
 void Matris::generate(int* &matris, std::size_t& len, std::size_t& width, std::size_t& height) {
   std::size_t newLen {};
@@ -41,7 +42,13 @@ void Matris::generate(int* &matris, std::size_t& len, std::size_t& width, std::s
     // nothing happens because it is a square matris
     break;
   default:
-    // some error case
+    // matris kare degil ise
+    MessageBoxW(
+      NULL, 
+      L"Olusturulan Matris, Kare Matris Degildir!",
+      L"Error!",
+      MB_ICONEXCLAMATION | MB_OK
+    );
     break;
   }
 }
