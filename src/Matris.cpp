@@ -3,7 +3,7 @@
 #include <windows.h>
 
 // column = 1 den height kadar gider
-void Matris::deleteColumn(const int& column, int* &matris, std::size_t& height, std::size_t& len) {
+void Matris::deleteColumn(const std::size_t& column, int* &matris, std::size_t& height, std::size_t& len) {
   if(column <= 0 || column > m_width) throw std::out_of_range("Boyle bir sutun yok.");
 
 
@@ -12,7 +12,7 @@ void Matris::deleteColumn(const int& column, int* &matris, std::size_t& height, 
   // this means that this is the last thing on the matris
   assert(m_width > 1 && "the caller didn't delete the dugum before deleteColumn() was called");
   
-  int deleteIndex {column - 1};
+  std::size_t deleteIndex {column - 1};
   int* new_matris {new int[len - height]};
   for(std::size_t i{0}, newMatrisIndex{0}; i < len; ++i) {
 
@@ -29,7 +29,7 @@ void Matris::deleteColumn(const int& column, int* &matris, std::size_t& height, 
 }
 
 // row = 1 den width kadar gider
-void Matris::deleteRow(const int& row, int* &matris, std::size_t& width, std::size_t& len) {
+void Matris::deleteRow(const std::size_t& row, int* &matris, std::size_t& width, std::size_t& len) {
   if(row <= 0 || row > m_height) throw std::out_of_range("Boyle bir satir yok.");
 
 

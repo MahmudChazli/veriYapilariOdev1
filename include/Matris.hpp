@@ -19,9 +19,9 @@ public:
   };
 
   // for the column delete we would add m_width after every deleted variable
-  void deleteColumn(const int& column, int* &matris, std::size_t& height, std::size_t& len);
+  void deleteColumn(const std::size_t& column, int* &matris, std::size_t& height, std::size_t& len);
   
-  void deleteRow(const int& row, int* &matris, std::size_t& width, std::size_t& len);
+  void deleteRow(const std::size_t& row, int* &matris, std::size_t& width, std::size_t& len);
 
   void print();
 
