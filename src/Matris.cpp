@@ -42,7 +42,7 @@ void Matris::generate(int* &matris, std::size_t& len, std::size_t& width, std::s
     // nothing happens because it is a square matris
     break;
   default:
-    // matris kare degil ise
+    // kare matris degil ise
     MessageBoxW(
       NULL, 
       L"Olusturulan Matris, Kare Matris Degildir!",
