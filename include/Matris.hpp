@@ -2,6 +2,7 @@
 #define MATRIS
 #include "Common.hpp"
 #include "Random.h"
+#include "MatrisDugum.hpp"
 
 class Matris {
 public:
@@ -14,37 +15,26 @@ public:
     m_height = height;
     m_width  = width;
     m_len = height * width;
-    m_matris = new int[m_len];
-    generate(m_matris, m_len, m_width, m_height);
+    generate(m_ilk, m_len, m_width, m_height);
   };
 
   // for the column delete we would add m_width after every deleted variable
-  void deleteColumn(const std::size_t& column, int* &matris, std::size_t& height, std::size_t& len);
+  void deleteColumn(const std::size_t& column, MatrisDugum* &ilk, std::size_t& height, std::size_t& len);
   
-  void deleteRow(const std::size_t& row, int* &matris, std::size_t& width, std::size_t& len);
+  void deleteRow(const int& row, MatrisDugum* &ilk, int& width, std::size_t& len);
 
   void print();
 
-  void test_print() {
-    std::cout << m_height << ' ' << m_width << '\n';
-    std::cout << m_len << '\n';
-
-    for(std::size_t i{}; i < m_len; ++i) {
-      if(!(i % m_width)) std::cout << '\n';
-      std::cout << std::left;
-      std::cout << std::setw(2) << m_matris[i] << ' ';
-    }
-  };
+  void test_print() {};
 
 private:
   std::size_t m_height {};
   std::size_t m_width {};
   std::size_t m_len {m_height * m_width};
 
-  // (Source - https://stackoverflow.com/q/7684712)
-  int* m_matris { new int[m_len] };
+  MatrisDugum* m_ilk {};
 
-  void generate(int* &matris, std::size_t& len, std::size_t& width, std::size_t& height);
+  void generate(MatrisDugum* &ilk, std::size_t& len, std::size_t& width, std::size_t& height);
 };
 
 #endif

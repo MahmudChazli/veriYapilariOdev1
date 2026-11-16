@@ -3,7 +3,7 @@
 #include <windows.h>
 
 // column = 1 den height kadar gider
-void Matris::deleteColumn(const std::size_t& column, int* &matris, std::size_t& height, std::size_t& len) {
+void Matris::deleteColumn(const std::size_t& column, MatrisDugum* &ilk, std::size_t& height, std::size_t& len) {
   if(column <= 0 || column > m_width) throw std::out_of_range("Boyle bir sutun yok.");
 
 
@@ -13,23 +13,35 @@ void Matris::deleteColumn(const std::size_t& column, int* &matris, std::size_t& 
   assert(m_width > 1 && "the caller didn't delete the dugum before deleteColumn() was called");
   
   std::size_t deleteIndex {column - 1};
-  int* new_matris {new int[len - height]};
-  for(std::size_t i{0}, newMatrisIndex{0}; i < len; ++i) {
+  for(std::size_t i{0}; i < len; ++i) {
+    MatrisDugum* gec {ilk};
 
     // I thought this would be harder than just this
-    if(i % m_width != deleteIndex) {
-      new_matris[newMatrisIndex] = matris[i];
-      ++newMatrisIndex;
+    if(i % m_width != (deleteIndex)) {
+
+      if(i == 0) {
+        MatrisDugum* sil {ilk};
+        ilk = ilk->sonra;
+        delete sil;
+
+      }else {
+        MatrisDugum* sonra {gec->sonra};
+        MatrisDugum* once  {gec->once};
+        delete gec;
+        once->sonra = sonra;
+        sonra->once = once;
+        gec = sonra;
+      }
+    }else {
+      gec = gec->sonra;
     }
   }
-  delete[] matris;
-  matris = new_matris;
-  len   -= height;
+  len -= height;
   --m_width;
 }
 
 // row = 1 den width kadar gider
-void Matris::deleteRow(const std::size_t& row, int* &matris, std::size_t& width, std::size_t& len) {
+void Matris::deleteRow(const int& row, MatrisDugum* &ilk, int& width, std::size_t& len) {
   if(row <= 0 || row > m_height) throw std::out_of_range("Boyle bir satir yok.");
 
 
@@ -38,25 +50,38 @@ void Matris::deleteRow(const std::size_t& row, int* &matris, std::size_t& width,
   // this means that this is the last thing on the matris
   assert(m_height > 1 && "the caller didn't delete the dugum before deleteRow() was called");
 
-  std::size_t deleteIndex {(row - 1) * width}; 
-  int* new_matris {new int[len - width]};
+  int deleteIndex {(row - 1) * width}; 
 
-  for(std::size_t i{0}, newMatrisIndex{0}; i < len; ++i) {
+  for(std::size_t i{0}; i < len; ++i) {
+    MatrisDugum* gec {ilk};
 
-    // don't add the row that we want to delete
-    if(i < deleteIndex || i > (deleteIndex + m_width - 1)) {
-      new_matris[newMatrisIndex] = matris[i];
-      ++newMatrisIndex;
+    if(i >= (deleteIndex - 1) && i <= (deleteIndex + m_width - 1)) {
+      if(deleteIndex == 0) {
+        MatrisDugum* sil {gec};
+        gec = gec->sonra;
+        ilk = gec;
+        ilk->once = nullptr;
+        delete sil;
+
+      }else {
+        MatrisDugum* sonra = gec->sonra->sonra;
+        delete gec->sonra;
+        gec->sonra = sonra;
+        sonra->once = gec;
+      }
+      
+    }else {
+      gec = gec->sonra;
     }
   }
-  delete[] matris;
-  matris = new_matris;
-  len   -= width;
+  len -= width;
   --m_height;
 }
 
 
-void Matris::generate(int* &matris, std::size_t& len, std::size_t& width, std::size_t& height) {
+void Matris::generate(MatrisDugum* &ilk, std::size_t& len, std::size_t& width, std::size_t& height) {
+  ilk->push(Random::get(0, 99));
+
   std::size_t newLen {};
   for(std::size_t i{}; i < len; ++i) { // this is a timer (the teacher has different sizes of matris)
 
@@ -64,25 +89,18 @@ void Matris::generate(int* &matris, std::size_t& len, std::size_t& width, std::s
     int num = Random::get(0, 99);
 
     for(std::size_t j{}; j <= newLen; ++j) {
+      MatrisDugum* gec{ilk};
       if(j == newLen) {
-        matris[j] = num;
+        gec->sonra = new MatrisDugum(num);
         ++newLen;
       }
-      if(num == matris[j]) break;
+      if(num == gec->get()) break;
+      gec = gec->sonra;
     }
   }
   len = newLen;
   height = width = static_cast<std::size_t>(std::ceil(sqrt(len)));
 
-  // this could be made into a helper function
-  int* new_matris { new int[len] };
-  for(std::size_t i{}; i < len; ++i) {
-    new_matris[i] = matris[i];
-  }
-  delete[] matris;
-  matris = new_matris;
-
-  // I'll do this later (I'm not sure what I need to do here)
   switch(len) {
   case 4:
   case 9:
