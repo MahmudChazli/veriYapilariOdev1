@@ -10,7 +10,6 @@ public:
   Matris(std::size_t height = 10, std::size_t width = 10) {
     // for now I'm just gonna use an assert to check the height and width
     assert(height <= 10 && width <= 10 && "height/width is above 10");
-    assert(height >= 0 && width >= 0 && "height/width is negative");
 
     m_height = height;
     m_width  = width;
@@ -18,10 +17,25 @@ public:
     generate(m_ilk, m_len, m_width, m_height);
   };
 
-  // for the column delete we would add m_width after every deleted variable
-  void deleteColumn(const std::size_t& column, MatrisDugum* &ilk, std::size_t& height, std::size_t& len);
+  ~Matris() {
+    while(m_ilk) {
+      MatrisDugum* sil {m_ilk};
+      m_ilk = m_ilk->sonra;
+      delete sil;
+    }
+  }
+
+  // for the column delete we would add m_width after every deleted variable and column start from 1 till n
+  void deleteColumn(const std::size_t& column, MatrisDugum* &ilk, const std::size_t& height, std::size_t& len);
   
-  void deleteRow(const int& row, MatrisDugum* &ilk, int& width, std::size_t& len);
+  // row starts from 1 till n
+  void deleteRow(const int& row, MatrisDugum* &ilk, const int& width, std::size_t& len);
+
+  // column starts from 1 till n
+  void columnSwitch(const std::size_t& column1, const std::size_t& column2, const std::size_t& len);
+
+  // row starts from 1 till n
+  void rowSwitch(const int& row1, const int& row2, const int& width, const std::size_t& len);
 
   void print();
 
@@ -32,7 +46,7 @@ private:
   std::size_t m_width {};
   std::size_t m_len {m_height * m_width};
 
-  MatrisDugum* m_ilk {};
+  MatrisDugum* m_ilk {new MatrisDugum()};
 
   void generate(MatrisDugum* &ilk, std::size_t& len, std::size_t& width, std::size_t& height);
 };
