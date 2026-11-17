@@ -37,7 +37,9 @@ public:
   // row starts from 1 till n
   void rowSwap(const int& row1, const int& row2, const int& width, const std::size_t& len);
 
-  int aritOrt();
+  // gives the aritmetik ortalama of the matris
+  int aritOrt(MatrisDugum* ilk, const std::size_t& len);
+
   void print();
 
   void test_print() {};

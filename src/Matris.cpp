@@ -187,6 +187,22 @@ void Matris::rowSwap(const int& row1, const int& row2, const int& width, const s
 
 
 
+//-------------------------------aritOrt---------------------------------------------
+
+
+
+int Matris::aritOrt(MatrisDugum* ilk, const std::size_t& len) {
+  MatrisDugum* gec {ilk};
+  std::size_t sum {0};
+  while(gec) {
+    sum += gec->get();
+    gec = gec->sonra;
+  }
+  return ( sum / len );
+}
+
+
+
 //--------------------------------generate-------------------------------------------
 
 
@@ -213,15 +229,14 @@ void Matris::generate(MatrisDugum* &ilk, std::size_t& len, std::size_t& width, s
     }
     gec = ilk;
   }
-  len = newLen;
   height = width = static_cast<std::size_t>(std::floor(sqrt(len)));
 
-  // kare matris yapmak satir sutun silmeleri ve yer degistirmede daha rahat olur
+  // we would delete the extra variables and make a kare matris
   MatrisDugum* gec {ilk};
   while(gec->sonra) {
     gec = gec->sonra;
   }
-  for(std::size_t i{len}; i > height * width; --i) {
+  for(std::size_t i{newLen}; i > height * width; --i) {
     MatrisDugum* sil {gec};
     gec = gec->once;
     gec->sonra = nullptr;
