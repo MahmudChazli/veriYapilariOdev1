@@ -2,6 +2,12 @@
 #include "../include/Matris.hpp"
 #include <windows.h>
 
+
+
+//--------------------------------delete---------------------------------------------
+
+
+
 // column = 1 den height kadar gider
 void Matris::deleteColumn(const std::size_t& column, MatrisDugum* &ilk, const std::size_t& height, std::size_t& len) {
   if(column <= 0 || column > m_width) throw std::out_of_range("Boyle bir sutun yok.");
@@ -80,9 +86,15 @@ void Matris::deleteRow(const int& row, MatrisDugum* &ilk, const int& width, std:
   --m_height; // we change the height since we deleted a row
 }
 
+
+
+//-------------------------------------swap------------------------------------------
+
+
+
 // there is probably a better way to do this but this is the first thing that I could think of
 // column starts from 1 till n
-void Matris::columnSwitch(const std::size_t& column1, const std::size_t& column2, const std::size_t& len) {
+void Matris::columnSwap(const std::size_t& column1, const std::size_t& column2, const std::size_t& len) {
   if(column1 <= 0 || column1 > m_width || column2 <= 0 || column2 > m_width) throw std::out_of_range("Boyle bir sutun yok.");
 
   std::size_t fIndex {column1 - 1}; // first column index
@@ -128,7 +140,7 @@ void Matris::columnSwitch(const std::size_t& column1, const std::size_t& column2
 }
 
 // row starts from 1 till n
-void Matris::rowSwitch(const int& row1, const int& row2, const int& width, const std::size_t& len) {
+void Matris::rowSwap(const int& row1, const int& row2, const int& width, const std::size_t& len) {
   if( row1 <= 0 || row1 > m_height || row2 <= 0 || row2 > m_height ) throw std::out_of_range("Boyle bir satir yok.");
 
   MatrisDugum* gec {m_ilk};
@@ -172,6 +184,12 @@ void Matris::rowSwitch(const int& row1, const int& row2, const int& width, const
   delete[] fRow;
   delete[] sRow;
 }
+
+
+
+//--------------------------------generate-------------------------------------------
+
+
 
 void Matris::generate(MatrisDugum* &ilk, std::size_t& len, std::size_t& width, std::size_t& height) {
   ilk->push(Random::get(0, 99));

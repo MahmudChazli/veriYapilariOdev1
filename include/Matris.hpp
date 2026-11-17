@@ -32,11 +32,12 @@ public:
   void deleteRow(const int& row, MatrisDugum* &ilk, const int& width, std::size_t& len);
 
   // column starts from 1 till n
-  void columnSwitch(const std::size_t& column1, const std::size_t& column2, const std::size_t& len);
+  void columnSwap(const std::size_t& column1, const std::size_t& column2, const std::size_t& len);
 
   // row starts from 1 till n
-  void rowSwitch(const int& row1, const int& row2, const int& width, const std::size_t& len);
+  void rowSwap(const int& row1, const int& row2, const int& width, const std::size_t& len);
 
+  int aritOrt();
   void print();
 
   void test_print() {};
