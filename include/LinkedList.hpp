@@ -51,7 +51,7 @@ inline void print(const Dugum* d) {
   std::cout << "--------------------\n";
 
   // I don't know what we are supposed to put here the teacher has it empty
-  std::cout << "* " << std::setw(19) << " *\n";
+  std::cout << "* " << std::setw(19) << d->matris.aritOrt() << " *\n";
 
   std::cout << "--------------------\n";
   std::cout << "*  ";

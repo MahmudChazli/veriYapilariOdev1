@@ -48,7 +48,7 @@ public:
   void rowSwap(const int& row1, const int& row2);
 
   // gives the aritmetik ortalama of the matris
-  int aritOrt();
+  int aritOrt() const;
 
   void print();
 
