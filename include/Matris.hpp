@@ -36,19 +36,19 @@ public:
   }
 
   // for the column delete we would add m_width after every deleted variable and column start from 1 till n
-  void deleteColumn(const std::size_t& column, MatrisDugum* &ilk, const std::size_t& height, std::size_t& len);
+  void deleteColumn(const std::size_t& column);
   
   // row starts from 1 till n
-  void deleteRow(const int& row, MatrisDugum* &ilk, const int& width, std::size_t& len);
+  void deleteRow(const int& row);
 
   // column starts from 1 till n
-  void columnSwap(const std::size_t& column1, const std::size_t& column2, const std::size_t& len);
+  void columnSwap(const std::size_t& column1, const std::size_t& column2);
 
   // row starts from 1 till n
-  void rowSwap(const int& row1, const int& row2, const int& width, const std::size_t& len);
+  void rowSwap(const int& row1, const int& row2);
 
   // gives the aritmetik ortalama of the matris
-  int aritOrt(MatrisDugum* ilk, const std::size_t& len);
+  int aritOrt();
 
   void print();
 
