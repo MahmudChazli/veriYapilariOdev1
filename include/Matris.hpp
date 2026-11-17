@@ -46,8 +46,8 @@ public:
 
 private:
   std::size_t m_height {};
-  std::size_t m_width {};
-  std::size_t m_len {m_height * m_width};
+  std::size_t m_width  {};
+  std::size_t m_len    {};
 
   MatrisDugum* m_ilk {new MatrisDugum()};
 
