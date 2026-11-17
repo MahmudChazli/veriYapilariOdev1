@@ -31,7 +31,7 @@ private:
 
   friend LinkedList;
   friend inline void printAll(const LinkedList& l);
-  friend inline void print(const Dugum* l);
+  friend inline void test_print(const Dugum* l);
 };
 
 #endif
