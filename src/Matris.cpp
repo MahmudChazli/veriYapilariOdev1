@@ -217,17 +217,17 @@ int Matris::aritOrt() const {
 
 
 
-void Matris::generate(MatrisDugum* &ilk, std::size_t& len, std::size_t& width, std::size_t& height) {
-  ilk->push(Random::get(0, 99));
+void Matris::generate() {
+  m_ilk->push(Random::get(0, 99));
 
   // we already have the first variable in the list so we start at 1 for newLen
   std::size_t newLen {1};
-  for(std::size_t i{0}; i < len; ++i) { // this is a timer (the teacher has different sizes of matris)
+  for(std::size_t i{0}; i < m_len; ++i) { // this is a timer (the teacher has different sizes of matris)
 
     // this would get us a number between 0 and 100 inclusive
     int num = Random::get(0, 99);
 
-    MatrisDugum* gec{ilk};
+    MatrisDugum* gec{m_ilk};
     for(std::size_t j{0}; j < newLen; ++j) {
       if(num == gec->get()) break;
       if(j == newLen - 1) {
@@ -237,25 +237,25 @@ void Matris::generate(MatrisDugum* &ilk, std::size_t& len, std::size_t& width, s
       }
       gec = gec->sonra;
     }
-    gec = ilk;
+    gec = m_ilk;
   }
-  height = width = static_cast<std::size_t>(std::floor(sqrt(len)));
+  m_height = m_width = static_cast<std::size_t>(std::floor(sqrt(m_len)));
 
   // we would delete the extra variables and make a kare matris
-  MatrisDugum* gec {ilk};
+  MatrisDugum* gec {m_ilk};
   while(gec->sonra) {
     gec = gec->sonra;
   }
-  for(std::size_t i{newLen}; i > height * width; --i) {
+  for(std::size_t i{newLen}; i > m_height * m_width; --i) {
     MatrisDugum* sil {gec};
     gec = gec->once;
     gec->sonra = nullptr;
     delete sil;
   }
-  len = height * width;
+  m_len = m_height * m_width;
   
   // the teacher wanted an error case for this for some reason
-  switch(len) {
+  switch(m_len) {
   case 4:
   case 9:
   case 16:

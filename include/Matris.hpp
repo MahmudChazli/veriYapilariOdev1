@@ -24,7 +24,6 @@ public:
     m_height = height;
     m_width  = width;
     m_len = height * width;
-    generate(m_ilk, m_len, m_width, m_height);
   };
 
   ~Matris() {
@@ -50,10 +49,6 @@ public:
   // gives the aritmetik ortalama of the matris
   int aritOrt() const;
 
-  void print();
-
-  void test_print() {};
-
 private:
   std::size_t m_height {};
   std::size_t m_width  {};
@@ -61,7 +56,7 @@ private:
 
   MatrisDugum* m_ilk {new MatrisDugum()};
 
-  void generate(MatrisDugum* &ilk, std::size_t& len, std::size_t& width, std::size_t& height);
+  void generate();
 };
 
 #endif
