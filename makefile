@@ -2,6 +2,8 @@ VHFlag = -include -std=c++17 # version and header flags
 
 all: clean bin/program
 
+program: bin/program
+
 bin/program: helpers lib/main.o
 	@echo "linking to program"
 	g++ lib/main.o lib/Matris.o lib/Screen.o lib/LinkedList.o -o bin/program
