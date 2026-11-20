@@ -1,6 +1,6 @@
 (the teacher spesified that it should be called a benioku.txt rather than README.md)
 
-hersey calistirmak icin
+hersey calistirmak icin:
   mingw32-make all
 
 .exe icin:
