@@ -19,10 +19,10 @@ class Dugum {
 public:
   Dugum() = default;
 
+private:
   // when we initialise m_matris it would initialise to a 10x10 matris
   Matris matris {};
 
-private:
   // these pointers are list initialised to nullptr
   Dugum* sonra {};
   Dugum* once  {};
