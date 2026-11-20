@@ -16,15 +16,15 @@ class Matris;
 class MatrisDugum {
 public:
   MatrisDugum() = default;
-  MatrisDugum(const int& ver) : m_ver{ver} {};
+  MatrisDugum(const int& veri) : m_veri{veri} {};
 
-  void push(const int& ver) { m_ver = ver; }
-  int get() { return m_ver; };
+  void push(const int& veri) { m_veri = veri; }
+  int get() { return m_veri; };
 
 private:
   MatrisDugum* sonra {};
   MatrisDugum* once  {};
-  int m_ver {};
+  int m_veri {};
 
   friend Matris;
 };

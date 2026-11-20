@@ -49,6 +49,8 @@ public:
   // gives the aritmetik ortalama of the matris
   int aritOrt() const;
 
+  void push(const int& veri);
+
 private:
   std::size_t m_height {};
   std::size_t m_width  {};

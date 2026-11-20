@@ -213,6 +213,24 @@ int Matris::aritOrt() const {
 
 
 
+//--------------------------------push-----------------------------------------------
+
+
+
+void Matris::push(const int& veri) {
+  if(!m_ilk) {
+    m_ilk = new MatrisDugum(veri);
+  }else {
+    MatrisDugum* gec {m_ilk};
+    while(gec->sonra) {
+      gec = gec->sonra;
+    }
+    gec->push(veri);
+  }
+}
+
+
+
 //--------------------------------generate-------------------------------------------
 
 
