@@ -47,7 +47,7 @@ public:
   void rowSwap(const int& row1, const int& row2);
 
   // gives the aritmetik ortalama of the matris
-  int aritOrt() const;
+  double aritOrt() const;
 
   void push(const int& veri);
 
@@ -62,7 +62,7 @@ private:
   std::size_t m_width  {};
   std::size_t m_len    {};
 
-  MatrisDugum* m_ilk {new MatrisDugum()};
+  MatrisDugum* m_ilk {};
 
   void generate();
 };

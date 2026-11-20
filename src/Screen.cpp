@@ -17,7 +17,7 @@
 
 
 
-void Screen::clearScreen() {
+void Screen::clear() {
   for(std::size_t i{0}; i < m_rowS; ++i) {
     for(std::size_t j{0}; j < m_colS; ++j) {
       m_screen[i][j] = ' ';
@@ -39,7 +39,7 @@ void Screen::save(const std::size_t& row, const std::size_t& col, std::string_vi
 
     if(saving >= m_colS) throw std::out_of_range("ERROR save(row, col, text): sutun limiti asti.");
 
-    m_screen[row][saving] = text[saving];
+    m_screen[row][saving] = text[i];
   }
 }
 

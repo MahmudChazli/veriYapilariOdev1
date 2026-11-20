@@ -12,6 +12,12 @@
 #include "../include/LinkedList.hpp"
 
 int main() {
+  Screen s{};
+  LinkedList list {};
+
+  list.printD(s, 1);
+  s.print();
+
   
   return 0;
 }

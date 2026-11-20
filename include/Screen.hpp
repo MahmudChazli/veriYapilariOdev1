@@ -17,10 +17,10 @@
 class Screen {
 public:
   Screen() {
-    clearScreen();
+    clear();
   };
 
-  void clearScreen();
+  void clear();
   void save(const std::size_t& row, const std::size_t& col, std::string_view text);
   void print();
 

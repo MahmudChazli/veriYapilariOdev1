@@ -21,11 +21,11 @@
 // this was easier than I thought
 void LinkedList::load() {
   // Source - https://www.geeksforgeeks.org/cpp/how-to-read-from-a-file-in-cpp/
-  std::ifstream f("kayitlar.txt");
+  std::ifstream f("src/kayitlar.txt");
 
   // Check if the file was opened successfully
   if (!f.is_open()) {
-    std::cerr << "Error opening the file!";
+    std::cerr << "Error load(): kayitlar.txt didn't open.";
     return;
   }
 
@@ -150,7 +150,7 @@ void LinkedList::printD(Screen& s, const std::size_t& listPage) {
   }
   gec = m_ilk;
   listLen = std::ceil(listLen / 5);
-  if(listPage > listLen || listPage == 0) throw std::out_of_range("ERROR printD(s, listPage): page out of range.");
+  if(listPage > listLen || listPage == 0) throw std::out_of_range("Error printD(s, listPage): page out of range.");
 
   std::ostringstream oss {};
   std::size_t listPageLen = (listPage - 1) * 5;
@@ -158,14 +158,21 @@ void LinkedList::printD(Screen& s, const std::size_t& listPage) {
   for(std::size_t i{0}; i < listPageLen; ++i) gec = gec->sonra;
 
   for(std::size_t i{listPageLen}, row{3}, col{0}; gec && i < (listPageLen + 5); ++i, row += 8) {
-    
+
     // this clears the ostringstream
     oss.str("");
     oss.clear();
     oss << gec;
     std::string currAd {oss.str()};
 
-    // this clears the ostringstream
+
+    oss.str("");
+    oss.clear();
+
+    oss << std::fixed << std::setprecision(2);
+    oss << gec->matris.aritOrt();
+    std::string aritOrt {oss.str()};
+    
     oss.str("");
     oss.clear();
 
@@ -181,7 +188,7 @@ void LinkedList::printD(Screen& s, const std::size_t& listPage) {
 
     // saving own address------------------------------------------
     s.save(row + 1, col, "*");
-    s.save(row + 1, col + 2, currAd);
+    s.save(row + 1, col + 3, currAd);
     s.save(row + 1, col + 19, "*");
     //-------------------------------
 
@@ -189,7 +196,7 @@ void LinkedList::printD(Screen& s, const std::size_t& listPage) {
 
     // saving aritOrt of matris------------------------------------
     s.save(row + 3, col, "*");
-    s.save(row + 3, col + 2, std::to_string(gec->matris.aritOrt()));
+    s.save(row + 3, col + 7, aritOrt);
     s.save(row + 3, col + 19, "*");
     //-------------------------------------------------------------
 
@@ -197,7 +204,7 @@ void LinkedList::printD(Screen& s, const std::size_t& listPage) {
 
     // go to address-----------------------------------------------
     s.save(row + 5, col, "*");
-    s.save(row + 5, col + 2, goToAd);
+    s.save(row + 5, col + 3, goToAd);
     s.save(row + 5, col + 19, "*");
     //-------------------------------------------------------------
 

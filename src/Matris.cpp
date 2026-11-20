@@ -201,9 +201,9 @@ void Matris::rowSwap(const int& row1, const int& row2) {
 
 
 
-int Matris::aritOrt() const {
+double Matris::aritOrt() const {
   MatrisDugum* gec {m_ilk};
-  std::size_t sum {0};
+  double sum {0};
   while(gec) {
     sum += gec->get();
     gec = gec->sonra;
