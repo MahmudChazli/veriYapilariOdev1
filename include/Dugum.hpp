@@ -28,7 +28,6 @@ private:
   Dugum* once  {};
 
   friend LinkedList;
-  friend inline void printAll(const LinkedList& l);
 };
 
 #endif
