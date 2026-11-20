@@ -23,7 +23,7 @@ public:
 
     m_height = height;
     m_width  = width;
-    m_len = height * width;
+    m_len    = height * width;
   };
 
   ~Matris() {
@@ -50,6 +50,12 @@ public:
   int aritOrt() const;
 
   void push(const int& veri);
+
+  void setHW(const std::size_t& height, const std::size_t& width) {
+    m_height = height;
+    m_width  = width;
+    m_len    = height * width;
+  }
 
 private:
   std::size_t m_height {};
