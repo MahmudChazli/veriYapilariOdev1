@@ -1,9 +1,12 @@
 (the teacher spesified that it should be called a benioku.txt rather than README.md)
 
-.exe icin:
+hersey calistirmak icin
   mingw32-make all
 
-.o ve .exe dosyalarin silmek icin:
+.exe icin:
+  mingw32-make program
+
+.o ve .exe dosyalari silmek icin:
   mingw32-make clean
 
 
