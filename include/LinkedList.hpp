@@ -10,8 +10,8 @@
 
 #ifndef LINKED_LIST
 #define LINKED_LIST
-#include "Common.hpp"
 #include "Dugum.hpp"
+#include "Screen.hpp"
 
 class Matris;
 
@@ -25,6 +25,7 @@ public:
   void load();
   void add();
   void remove();
+  void printD(Screen& s, const std::size_t& listPage);
   Dugum* getIlk() const { return m_ilk; };
   
   // in the futre I might change it to be a circular dynamic list

@@ -10,7 +10,8 @@
 
 #include "../include/linkedList.hpp"
 #include <fstream>
-#include <algorithm>
+#include <string>
+#include <sstream>
 
 
 
@@ -130,4 +131,78 @@ void LinkedList::remove() {
   }
   delete gec->sonra;
   gec->sonra = nullptr;
+}
+
+
+
+//-------------------------printD----------------------------------
+
+
+// I called it list page it's just that the teacher wants us to print five
+// at a time so each five would be a page. listPage = 1 till n
+void LinkedList::printD(Screen& s, const std::size_t& listPage) {
+  float listLen {0}; // list length
+  
+  Dugum* gec {m_ilk};
+  while(gec) {
+    ++listLen;
+    gec = gec->sonra;
+  }
+  gec = m_ilk;
+  listLen = std::ceil(listLen / 5);
+  if(listPage > listLen || listPage == 0) throw std::out_of_range("ERROR printD(s, listPage): page out of range.");
+
+  std::ostringstream oss {};
+  std::size_t listPageLen = (listPage - 1) * 5;
+  // this moves gec to where it needs to be
+  for(std::size_t i{0}; i < listPageLen; ++i) gec = gec->sonra;
+
+  for(std::size_t i{listPageLen}, row{3}, col{0}; gec && i < (listPageLen + 5); ++i, row += 8) {
+    
+    // this clears the ostringstream
+    oss.str("");
+    oss.clear();
+    oss << gec;
+    std::string currAd {oss.str()};
+
+    // this clears the ostringstream
+    oss.str("");
+    oss.clear();
+
+    std::string goToAd {};
+    if(gec->sonra) {
+      oss << gec->sonra;
+      goToAd = oss.str();
+    }else{
+      goToAd = "0x0";
+    }
+
+    s.save(row, col, "********************");
+
+    // saving own address------------------------------------------
+    s.save(row + 1, col, "*");
+    s.save(row + 1, col + 2, currAd);
+    s.save(row + 1, col + 19, "*");
+    //-------------------------------
+
+    s.save(row + 2, col, "--------------------");
+
+    // saving aritOrt of matris------------------------------------
+    s.save(row + 3, col, "*");
+    s.save(row + 3, col + 2, std::to_string(gec->matris.aritOrt()));
+    s.save(row + 3, col + 19, "*");
+    //-------------------------------------------------------------
+
+    s.save(row + 4, col, "--------------------");
+
+    // go to address-----------------------------------------------
+    s.save(row + 5, col, "*");
+    s.save(row + 5, col + 2, goToAd);
+    s.save(row + 5, col + 19, "*");
+    //-------------------------------------------------------------
+
+    s.save(row + 6, col, "********************");
+    
+    gec = gec->sonra;
+  }
 }
