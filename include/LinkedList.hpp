@@ -25,7 +25,10 @@ public:
   void load();
   void add();
   void remove();
+
+  // print Dugum
   void printD(Screen& s, const std::size_t& listPage);
+  
   Dugum* getIlk() const { return m_ilk; };
   
   // in the futre I might change it to be a circular dynamic list
