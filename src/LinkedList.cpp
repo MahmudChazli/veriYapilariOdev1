@@ -214,3 +214,28 @@ void LinkedList::printD(Screen& s, const std::size_t& listPage) {
     gec = gec->sonra;
   }
 }
+
+
+
+//-------------------------printM----------------------------------
+
+
+
+void LinkedList::printM(Screen& s, const std::size_t& selectedD) {
+  std::size_t listLen {0};
+
+  Dugum* gec {m_ilk};
+  while(gec) {
+    ++listLen;
+    gec = gec->sonra;
+  }
+  gec = m_ilk;
+
+  if(selectedD > listLen ||selectedD == 0) throw std::out_of_range("Error printM(s, selectedD): selectedD is out of range.");
+
+  for(std::size_t i{0}; i < (selectedD - 1); ++i) {
+    gec = gec->sonra;
+  }
+  
+  gec->matris.print(s, selectedD);
+}

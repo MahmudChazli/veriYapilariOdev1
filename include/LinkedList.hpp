@@ -28,6 +28,9 @@ public:
 
   // print Dugum
   void printD(Screen& s, const std::size_t& listPage);
+
+  // print matris
+  void printM(Screen& s, const std::size_t& selectedD);
   
   Dugum* getIlk() const { return m_ilk; };
   

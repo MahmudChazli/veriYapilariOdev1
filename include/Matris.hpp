@@ -13,6 +13,7 @@
 #include "Common.hpp"
 #include "Random.h"
 #include "MatrisDugum.hpp"
+#include "Screen.hpp"
 
 class Matris {
 public:
@@ -50,6 +51,7 @@ public:
   double aritOrt() const;
 
   void push(const int& veri);
+  void print(Screen& s, const std::size_t& selectedD);
 
   void setHW(const std::size_t& height, const std::size_t& width) {
     m_height = height;

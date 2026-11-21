@@ -225,7 +225,43 @@ void Matris::push(const int& veri) {
     while(gec->sonra) {
       gec = gec->sonra;
     }
-    gec->push(veri);
+    gec->sonra = new MatrisDugum(veri);
+  }
+}
+
+
+
+//-------------------------printM----------------------------------
+
+
+
+// selected dugum is around 1 to 5
+void Matris::print(Screen& s, const std::size_t& selectedD) {
+  if(selectedD > 5 || selectedD == 0) throw std::out_of_range("Error printM(s, selectedD): selectedD is out of range");
+
+  std::size_t paddingRow {3};
+  std::size_t paddingCol {22};
+  // times eight is just the dugum that it would be on
+  std::size_t row {(selectedD - 1) * 8 + paddingRow};
+
+  // this prints the arrows that show which dugum it currently has selected
+  s.save(row,     paddingCol, "<-");
+  s.save(row + 1, paddingCol, "<-");
+  s.save(row + 2, paddingCol, "<-");
+  s.save(row + 3, paddingCol, "<-");
+  s.save(row + 4, paddingCol, "<-");
+  s.save(row + 5, paddingCol, "<-");
+  s.save(row + 6, paddingCol, "<-");
+
+  paddingCol = 27;
+  MatrisDugum* gec {m_ilk};
+  for(std::size_t i{0}; i < m_height; ++i) {
+    std::ostringstream oss {};
+    for(std::size_t j {paddingCol}, times{0}; times < (m_width); j += 3, ++times) {
+      s.save(row + i, j, std::to_string(gec->get()));
+
+      gec = gec->sonra;
+    }
   }
 }
 

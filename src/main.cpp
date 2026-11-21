@@ -15,7 +15,12 @@ int main() {
   Screen s{};
   LinkedList list {};
 
-  list.printD(s, 1);
+  
+  std::size_t page {1};
+  list.printD(s, page);
+
+  std::size_t selected {1};
+  list.printM(s, selected);
   s.print();
 
   
