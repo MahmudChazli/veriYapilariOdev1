@@ -217,11 +217,11 @@ void LinkedList::printD(Screen& s, const std::size_t& listPage) {
 
 
 
-//-------------------------printM----------------------------------
+//-------------------------printMatris-----------------------------
 
 
 
-void LinkedList::printM(Screen& s, const std::size_t& selectedD) {
+void LinkedList::printMatris(Screen& s, const std::size_t& selectedD) {
   std::size_t listLen {0};
 
   Dugum* gec {m_ilk};
@@ -231,11 +231,67 @@ void LinkedList::printM(Screen& s, const std::size_t& selectedD) {
   }
   gec = m_ilk;
 
-  if(selectedD > listLen ||selectedD == 0) throw std::out_of_range("Error printM(s, selectedD): selectedD is out of range.");
+  if(selectedD > listLen || selectedD == 0) throw std::out_of_range("Error printM(s, selectedD): selectedD is out of range.");
 
   for(std::size_t i{0}; i < (selectedD - 1); ++i) {
     gec = gec->sonra;
   }
   
   gec->matris.print(s, selectedD);
+}
+
+
+
+//-------------------------printMenu-------------------------------
+
+
+
+void LinkedList::printMenu(Screen& s) {
+  s.save(1, 60, "|---- Dugum gezilimi aktif -----------|");
+  s.save(2, 60, "|    w/s tuslari ile gezebilirsiniz   |");
+  s.save(3, 60, "|    q tusu ile one dugum ekle        |");
+  s.save(4, 60, "|    e tusu ile arkaya dugum ekle     |");
+  s.save(5, 60, "|    f tusu ile dugum secilebilir     |");
+  s.save(6, 60, "|    k tusu ile programi kapat        |");
+  s.save(7, 60, "|-------------------------------------|");
+}
+
+
+
+//-------------------------printAll--------------------------------
+
+
+
+void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selectedD, const char& usrInput) {
+  Dugum* gec {m_ilk};
+  std::size_t listLen {0};
+  while(gec) {
+    ++listLen;
+    gec = gec->sonra;
+  }
+
+  switch(usrInput) {
+  case 'w':
+    if(selectedD > 1) --selectedD; // 1 is the first dugum
+    break;
+
+  case 's':
+    if(selectedD < listLen) {
+      ++selectedD;
+    }
+    break;
+
+  case 'q':
+    break;
+  case 'e':
+    break;
+  case 'f':
+    break;
+  default: break;
+  }
+
+  listPage = (selectedD - 1) / 5 + 1; // this would turn the page if needed
+  printMenu  (s);
+  printD     (s, listPage);
+  printMatris(s, selectedD);
 }

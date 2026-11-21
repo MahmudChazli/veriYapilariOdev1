@@ -30,7 +30,11 @@ public:
   void printD(Screen& s, const std::size_t& listPage);
 
   // print matris
-  void printM(Screen& s, const std::size_t& selectedD);
+  void printMatris(Screen& s, const std::size_t& selectedD);
+
+  void printMenu(Screen& s);
+
+  void printAll(Screen& s, std::size_t& listPage, std::size_t& selectedD, const char& usrInput);
   
   Dugum* getIlk() const { return m_ilk; };
   
