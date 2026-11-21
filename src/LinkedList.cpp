@@ -246,47 +246,8 @@ void LinkedList::orderL() {
     Dugum* smallest {gec};
     for(std::size_t j{i}; j < len; ++j) {
       if(gec->matris.aritOrt() < smallest->matris.aritOrt()) {
-          Dugum* smallestO = smallest->once;
-          Dugum* gecS = gec->sonra;
-
-        if(smallest->sonra == gec) {
-
-          smallest->sonra                = gecS;
-          smallest->once                 = gec;
-          if(smallestO) smallestO->sonra = gec;
-
-
-          if(!smallestO) m_ilk = gec;
-
-
-          gec->once           = smallestO;
-          gec->sonra          = smallest;
-          if(gecS) gecS->once = smallest;
-          
-          Dugum* extra {smallest};
-
-          smallest = gec;
-          gec      = extra; // this took me a while to figure out
-
-        }else {          
-          Dugum* smallestS = smallest->sonra;
-          Dugum* gecO      = gec->once;
-
-          smallest->sonra     = gecS;
-          smallest->once      = gecO;
-          gecO->sonra         = smallest;
-          if(gecS) gecS->once = smallest;
-          
-          if(!smallestO) m_ilk = gec;
-
-          gec->sonra                     = smallestS;
-          gec->once                      = smallestO;
-          smallestS->once                = gec;
-          if(smallestO) smallestO->sonra = gec;
-
-          smallest = gec;
-          gec      = gecO->sonra;
-        }
+        gec->matris.swap(smallest->matris);
+        smallest = gec;
       }
       gec = gec->sonra;
     }

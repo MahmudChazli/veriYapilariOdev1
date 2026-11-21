@@ -52,8 +52,21 @@ public:
 
   void secM(); // secilen matris
 
+  void swap(Matris& m1); // this would swapt the matris
+
   void push(const int& veri);
   void print(Screen& s, const std::size_t& selectedD);
+
+  MatrisDugum*  getIlk() { return m_ilk; }
+  std::size_t   getH()   { return m_height; }
+  std::size_t   getW()   { return m_width; }
+  std::size_t   getL()   { return m_len; }
+
+  void setIlk(MatrisDugum* newM)       { m_ilk    = newM; }
+  void setH(const std::size_t& height) { m_height = height; }
+  void setW(const std::size_t& width)  { m_width  = width; }
+  void setL(const std::size_t& len)  { m_len    = len; }
+
 
   void setHW(const std::size_t& height, const std::size_t& width) {
     m_height = height;

@@ -19,6 +19,9 @@ class Dugum {
 public:
   Dugum() = default;
 
+
+  Matris getMatris() { return matris; }
+
 private:
   // when we initialise m_matris it would initialise to a 10x10 matris
   Matris matris {};

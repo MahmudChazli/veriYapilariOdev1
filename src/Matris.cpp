@@ -266,12 +266,35 @@ void Matris::print(Screen& s, const std::size_t& selectedD) {
 
 
 
-//--------------------------------secM-----------------------------------------------
+//--------------------------------swap-----------------------------------------------
 
 
 
 void Matris::secM() {
-  
+
+}
+
+
+
+//--------------------------------swap-----------------------------------------------
+
+
+
+void Matris::swap(Matris& m) {
+  MatrisDugum* gec {m_ilk};
+  std::size_t gecH {m_height};
+  std::size_t gecW {m_width};
+  std::size_t gecL {m_len};
+
+  m_height = m.getH();
+  m_width  = m.getW();
+  m_len    = m.getL();
+  m_ilk    = m.getIlk();
+
+  m.setIlk(gec);
+  m.setH(gecH);
+  m.setW(gecW);
+  m.setL(gecL);
 }
 
 
