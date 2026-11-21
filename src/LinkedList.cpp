@@ -231,6 +231,72 @@ std::size_t LinkedList::getLen() {
 
 
 
+//-------------------------orderL----------------------------------
+
+
+
+void LinkedList::orderL() {
+  std::size_t len {getLen()};
+
+  Dugum* gec {m_ilk};
+  for(std::size_t i{0}; i < len; ++i) {
+
+    for(std::size_t k{0}; k < i; ++k) gec = gec->sonra;
+
+    Dugum* smallest {gec};
+    for(std::size_t j{i}; j < len; ++j) {
+      if(gec->matris.aritOrt() < smallest->matris.aritOrt()) {
+          Dugum* smallestO = smallest->once;
+          Dugum* gecS = gec->sonra;
+
+        if(smallest->sonra == gec) {
+
+          smallest->sonra                = gecS;
+          smallest->once                 = gec;
+          if(smallestO) smallestO->sonra = gec;
+
+
+          if(!smallestO) m_ilk = gec;
+
+
+          gec->once           = smallestO;
+          gec->sonra          = smallest;
+          if(gecS) gecS->once = smallest;
+          
+          Dugum* extra {smallest};
+
+          smallest = gec;
+          gec      = extra;
+
+        }else {          
+          Dugum* smallestS = smallest->sonra;
+          Dugum* gecO      = gec->once;
+
+          smallest->sonra     = gecS;
+          smallest->once      = gecO;
+          gecO->sonra         = smallest;
+          if(gecS) gecS->once = smallest;
+          
+          if(!smallestO) m_ilk = gec;
+
+          gec->sonra                     = smallestS;
+          gec->once                      = smallestO;
+          smallestS->once                = gec;
+          if(smallestO) smallestO->sonra = gec;
+
+          smallest = gec;
+          gec      = gecO->sonra;
+        }
+      }
+      gec = gec->sonra;
+    }
+    
+    gec = m_ilk;
+  }
+}
+
+
+
 //-------------------------printD----------------------------------
 
 
@@ -354,13 +420,9 @@ void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selecte
   case 'w':
     if(selectedD > 1) --selectedD; // 1 is the first dugum
     break;
-
   case 's':
-    if(selectedD < listLen) {
-      ++selectedD;
-    }
+    if(selectedD < listLen) ++selectedD;
     break;
-
   case 'q':
     addLower(selectedD);
     break;
@@ -373,6 +435,7 @@ void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selecte
   default: break;
   }
 
+  orderL();
   listPage = (selectedD - 1) / 5 + 1; // this would turn the page if needed
   printMenu  (s);
   printD     (s, listPage);

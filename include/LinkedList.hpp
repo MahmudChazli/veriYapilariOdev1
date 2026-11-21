@@ -31,6 +31,9 @@ public:
 
   std::size_t getLen();
 
+  // orders the list according to aritOrt
+  void orderL();
+
   // print Dugum
   void printD(Screen& s, const std::size_t& listPage);
 
