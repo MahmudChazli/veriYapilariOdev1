@@ -94,21 +94,91 @@ void LinkedList::load() {
 
 
 
-//-------------------------add----------------------------------
+//-------------------------addLower---------------------------------
 
 
 
-void LinkedList::add() {
-  if(!m_ilk) {
-    m_ilk = new Dugum();
-  }
+// the checks for selectedD are done by the parent caller
+void LinkedList::addLower(const std::size_t& selectedD) {
   Dugum* gec{m_ilk};
-  
-  while(gec->sonra) {
-    gec = gec->sonra;
+
+  if(!gec) {
+    gec = new Dugum();
+  }else {
+    
+    std::size_t len {0};
+    while(gec) {
+      ++len;
+      gec = gec->sonra;
+    }
+    gec = m_ilk;
+
+    // this is here so that if the parent forgot to do the check we would throw an error
+    if(selectedD > len || selectedD < 1) throw std::out_of_range("Error addUppoer(selectedD): selectedD out of range");
+
+    for(std::size_t i{1}; i < selectedD; ++i) {
+      gec = gec->sonra;
+    }
+
+    Dugum* sonra = gec->sonra;
+
+    gec->sonra = new Dugum();
+    gec->sonra->once = gec;
+
+    // if once exists
+    if(sonra) {
+      sonra->once = gec->sonra;
+      gec->sonra->sonra = sonra;
+    }
   }
-  gec->sonra       = new Dugum();
-  gec->sonra->once = gec;
+
+  gec->sonra->matris.generate();
+}
+
+
+
+//-------------------------addUpper---------------------------------
+
+
+
+// the checks for selectedD are done by the parent caller
+void LinkedList::addUpper(std::size_t& selectedD) {
+  Dugum* gec{m_ilk};
+
+  if(!gec) {
+    gec = new Dugum();
+
+  }else {
+    std::size_t len {0};
+    while(gec) {
+      ++len;
+      gec = gec->sonra;
+    }
+    gec = m_ilk;
+
+    // this is here so that if the parent forgot to do the check we would throw an error
+    if(selectedD > len || selectedD < 1) throw std::out_of_range("Error addUppoer(selectedD): selectedD out of range");
+
+    for(std::size_t i{1}; i < selectedD; ++i) {
+      gec = gec->sonra;
+    }
+
+    Dugum* once = gec->once;
+
+    gec->once = new Dugum();
+    gec->once->sonra = gec;
+
+    // if once exists
+    if(once) {
+      once->sonra = gec->once;
+      gec->once->once = once;
+
+    }else { // this would mean that we added a upper node to m_ilk
+      m_ilk = gec->once;
+    }
+  }
+  ++selectedD;
+  gec->once->matris.generate();
 }
 
 
@@ -282,8 +352,10 @@ void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selecte
     break;
 
   case 'q':
+    addLower(selectedD);
     break;
   case 'e':
+    addUpper(selectedD);
     break;
   case 'f':
     break;

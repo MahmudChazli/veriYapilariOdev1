@@ -23,7 +23,8 @@ public:
   }
 
   void load();
-  void add();
+  void addLower(const std::size_t& selectedD);
+  void addUpper(std::size_t& selectedD);
   void remove();
 
   // print Dugum

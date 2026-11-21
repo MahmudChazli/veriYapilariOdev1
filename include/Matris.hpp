@@ -59,14 +59,15 @@ public:
     m_len    = height * width;
   }
 
+  // generates the matris variables
+  void generate();
+
 private:
   std::size_t m_height {};
   std::size_t m_width  {};
   std::size_t m_len    {};
 
-  MatrisDugum* m_ilk {};
-
-  void generate();
+  MatrisDugum* m_ilk { new MatrisDugum() };
 };
 
 #endif

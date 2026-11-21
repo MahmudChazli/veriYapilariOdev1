@@ -292,7 +292,7 @@ void Matris::generate() {
     }
     gec = m_ilk;
   }
-  m_height = m_width = static_cast<std::size_t>(std::floor(sqrt(m_len)));
+  m_height = m_width = static_cast<std::size_t>(std::floor(sqrt(newLen)));
 
   // we would delete the extra variables and make a kare matris
   MatrisDugum* gec {m_ilk};
