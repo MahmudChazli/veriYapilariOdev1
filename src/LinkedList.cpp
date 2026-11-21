@@ -21,7 +21,7 @@
 // this was easier than I thought
 void LinkedList::load() {
   // Source - https://www.geeksforgeeks.org/cpp/how-to-read-from-a-file-in-cpp/
-  std::ifstream f("src/kayitlar.txt");
+  std::ifstream f("lib/kayitlar.txt");
 
   // Check if the file was opened successfully
   if (!f.is_open()) {
