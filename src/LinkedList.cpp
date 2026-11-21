@@ -105,13 +105,8 @@ void LinkedList::addLower(const std::size_t& selectedD) {
   if(!gec) {
     gec = new Dugum();
   }else {
-    
-    std::size_t len {0};
-    while(gec) {
-      ++len;
-      gec = gec->sonra;
-    }
-    gec = m_ilk;
+
+    std::size_t len {getLen()};
 
     // this is here so that if the parent forgot to do the check we would throw an error
     if(selectedD > len || selectedD < 1) throw std::out_of_range("Error addUppoer(selectedD): selectedD out of range");
@@ -149,12 +144,7 @@ void LinkedList::addUpper(std::size_t& selectedD) {
     gec = new Dugum();
 
   }else {
-    std::size_t len {0};
-    while(gec) {
-      ++len;
-      gec = gec->sonra;
-    }
-    gec = m_ilk;
+    std::size_t len {getLen()};
 
     // this is here so that if the parent forgot to do the check we would throw an error
     if(selectedD > len || selectedD < 1) throw std::out_of_range("Error addUppoer(selectedD): selectedD out of range");
@@ -177,7 +167,6 @@ void LinkedList::addUpper(std::size_t& selectedD) {
       m_ilk = gec->once;
     }
   }
-  ++selectedD;
   gec->once->matris.generate();
 }
 
@@ -205,6 +194,43 @@ void LinkedList::remove() {
 
 
 
+//-------------------------secMatris-------------------------------
+
+
+
+void LinkedList::secMatris(const std::size_t& selectedD) {
+  std::size_t len {getLen()};
+
+  if(selectedD > len || selectedD < 1) throw std::out_of_range("Error secMatris(selectedD): selectedD is out of range");
+  
+  Dugum* gec {m_ilk};
+  for(std::size_t i{1}; i < selectedD; ++i) {
+    gec = gec->sonra;
+  }
+
+  gec->matris.secM();
+}
+
+
+
+//-------------------------getLen----------------------------------
+
+
+
+// I've finally decided to write a helper function
+// I have just been finding it everytime I needed len 
+std::size_t LinkedList::getLen() {
+  Dugum*      gec {m_ilk};
+  std::size_t len {0};
+  while(gec) {
+    ++len;
+    gec = gec->sonra;
+  }
+  return len;
+}
+
+
+
 //-------------------------printD----------------------------------
 
 
@@ -212,14 +238,9 @@ void LinkedList::remove() {
 // I called it list page it's just that the teacher wants us to print five
 // at a time so each five would be a page. listPage = 1 till n
 void LinkedList::printD(Screen& s, const std::size_t& listPage) {
-  float listLen {0}; // list length
+  float listLen {static_cast<float>(getLen())};
   
   Dugum* gec {m_ilk};
-  while(gec) {
-    ++listLen;
-    gec = gec->sonra;
-  }
-  gec = m_ilk;
   listLen = std::ceil(listLen / 5);
   if(listPage > listLen || listPage == 0) throw std::out_of_range("Error printD(s, listPage): page out of range.");
 
@@ -292,15 +313,9 @@ void LinkedList::printD(Screen& s, const std::size_t& listPage) {
 
 
 void LinkedList::printMatris(Screen& s, const std::size_t& selectedD) {
-  std::size_t listLen {0};
+  std::size_t listLen {getLen()};
 
   Dugum* gec {m_ilk};
-  while(gec) {
-    ++listLen;
-    gec = gec->sonra;
-  }
-  gec = m_ilk;
-
   if(selectedD > listLen || selectedD == 0) throw std::out_of_range("Error printM(s, selectedD): selectedD is out of range.");
 
   for(std::size_t i{0}; i < (selectedD - 1); ++i) {
@@ -333,12 +348,7 @@ void LinkedList::printMenu(Screen& s) {
 
 
 void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selectedD, const char& usrInput) {
-  Dugum* gec {m_ilk};
-  std::size_t listLen {0};
-  while(gec) {
-    ++listLen;
-    gec = gec->sonra;
-  }
+  std::size_t listLen {getLen()};
 
   switch(usrInput) {
   case 'w':
@@ -358,6 +368,7 @@ void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selecte
     addUpper(selectedD);
     break;
   case 'f':
+    secMatris(selectedD);
     break;
   default: break;
   }

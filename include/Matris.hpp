@@ -50,6 +50,8 @@ public:
   // gives the aritmetik ortalama of the matris
   double aritOrt() const;
 
+  void secM(); // secilen matris
+
   void push(const int& veri);
   void print(Screen& s, const std::size_t& selectedD);
 

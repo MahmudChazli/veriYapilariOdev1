@@ -27,6 +27,10 @@ public:
   void addUpper(std::size_t& selectedD);
   void remove();
 
+  void secMatris(const std::size_t& selectedM);
+
+  std::size_t getLen();
+
   // print Dugum
   void printD(Screen& s, const std::size_t& listPage);
 
