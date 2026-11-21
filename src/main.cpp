@@ -16,10 +16,10 @@ int main() {
   LinkedList list {};
 
   
-  std::size_t page {1};
+  std::size_t page {2};
   list.printD(s, page);
 
-  std::size_t selected {1};
+  std::size_t selected {6};
   list.printM(s, selected);
   s.print();
 

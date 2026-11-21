@@ -237,12 +237,11 @@ void Matris::push(const int& veri) {
 
 // selected dugum is around 1 to 5
 void Matris::print(Screen& s, const std::size_t& selectedD) {
-  if(selectedD > 5 || selectedD == 0) throw std::out_of_range("Error printM(s, selectedD): selectedD is out of range");
 
   std::size_t paddingRow {3};
   std::size_t paddingCol {22};
   // times eight is just the dugum that it would be on
-  std::size_t row {(selectedD - 1) * 8 + paddingRow};
+  std::size_t row {((selectedD - 1) % 5) * 8 + paddingRow};
 
   // this prints the arrows that show which dugum it currently has selected
   s.save(row,     paddingCol, "<-");

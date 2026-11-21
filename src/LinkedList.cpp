@@ -182,7 +182,7 @@ void LinkedList::printD(Screen& s, const std::size_t& listPage) {
       oss << gec->sonra;
       goToAd = oss.str();
     }else{
-      goToAd = "0x0";
+      goToAd = "     0x0";
     }
 
     s.save(row, col, "********************");
