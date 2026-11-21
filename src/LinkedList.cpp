@@ -266,7 +266,7 @@ void LinkedList::orderL() {
           Dugum* extra {smallest};
 
           smallest = gec;
-          gec      = extra;
+          gec      = extra; // this took me a while to figure out
 
         }else {          
           Dugum* smallestS = smallest->sonra;
