@@ -14,15 +14,38 @@
 int main() {
   Screen s{};
   LinkedList list {};
-
   
-  std::size_t page {2};
-  list.printD(s, page);
+  std::size_t page     {1};
+  std::size_t selected {1};
 
-  std::size_t selected {6};
-  list.printM(s, selected);
-  s.print();
+  char usrInput  {};
 
+  bool isRunning {true};
+  while(isRunning) {
+    s.clear();
+
+    // puts a separator at the start of the page
+    s.save(1, 0, "--------------------------------------------------");
+
+    
+    list.printD(s, page);
+    list.printM(s, selected);
+
+    // puts a separated at the end of the page
+    s.save(43, 0, "--------------------------------------------------");
+
+
+    s.print();
+
+
+    std::cin >> usrInput;
+    
+    // flush the intput stream if it has an error
+    if(std::cin.fail()) {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  }
   
   return 0;
 }
