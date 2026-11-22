@@ -1,7 +1,6 @@
 /**
 * @file LinkedList.hpp
-* @description Bağlı listede her düğüm, 1 ile 100 arası sayılardan olusur ve her terimleri essiz bir kare matris tutar. 
-*              Matriste satır ve sütun silme, yer değiştirme ve aritmetik ortalama işlemleri yapılır.
+* @description Ana iki yonlu bagli liste, kaydet ve yukleme burada olusur, ilk Dugum tutar.
 * @course veri yapilari
 * @assignment 1.odev
 * @date 22.10.2060

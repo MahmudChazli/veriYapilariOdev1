@@ -1,7 +1,6 @@
 /**
 * @file Matris.hpp
-* @description Bağlı listede her düğüm, 1 ile 100 arası sayılardan olusur ve her terimleri essiz bir kare matris tutar. 
-*              Matriste satır ve sütun silme, yer değiştirme ve aritmetik ortalama işlemleri yapılır.
+* @description MatrisDugum tutar ve satir/sutun islemleri burada olusur
 * @course veri yapilari
 * @assignment 1.odev
 * @date 22.10.2060

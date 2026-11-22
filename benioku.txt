@@ -12,3 +12,6 @@ hersey calistirmak icin:
 
 Sources:
   Random.h "https://www.learncpp.com/cpp-tutorial/global-random-numbers-random-h/"
+
+github repo:
+  https://github.com/MahmudChazli/veriYapilariOdev1

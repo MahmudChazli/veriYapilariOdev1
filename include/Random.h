@@ -1,7 +1,7 @@
 /**
 * @file Random.h
-* @description Bağlı listede her düğüm, 1 ile 100 arası sayılardan olusur ve her terimleri essiz bir kare matris tutar. 
-*              Matriste satır ve sütun silme, yer değiştirme ve aritmetik ortalama işlemleri yapılır.
+* @description https://www.learncpp.com/cpp-tutorial/global-random-numbers-random-h/ den aldim 
+* 						 Random::get() ile rastgele sayi verir
 * @course veri yapilari
 * @assignment 1.odev
 * @date 22.10.2060

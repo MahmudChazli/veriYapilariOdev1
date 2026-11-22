@@ -1,7 +1,6 @@
 /**
 * @file main.cpp
-* @description Bağlı listede her düğüm, 1 ile 100 arası sayılardan olusur ve her terimleri essiz bir kare matris tutar. 
-*              Matriste satır ve sütun silme, yer değiştirme ve aritmetik ortalama işlemleri yapılır.
+* @description kullanicidan giris alir ve ona gore islem yapar
 * @course veri yapilari
 * @assignment 1.odev
 * @date 22.10.2060
@@ -15,6 +14,7 @@ int main() {
   Screen s{};
   LinkedList list {};
   
+  // list metoduna arguman gondermek icin
   std::size_t page     {1};
   std::size_t selectedD {1};
 
