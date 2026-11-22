@@ -91,11 +91,17 @@ void LinkedList::load() {
     }
     gec->matris.setHW(height, width);
 
+    bool isFirstVer {true};
     // it would be hard to read if I just merged both the for loops together
     for(std::size_t start {endI}; endI < veri.size(); ++endI) {
       if(veri[endI] == ' ') {
-
-        gec->matris.push( std::stoi(veri.substr(start, endI - start)) );
+        int num = std::stoi(veri.substr(start, endI - start));
+        if(isFirstVer) {
+          gec->matris.getIlk()->push(num);
+          isFirstVer = false;
+        }else {
+          gec->matris.push(num);
+        }
 
         start = endI + 1;
       }

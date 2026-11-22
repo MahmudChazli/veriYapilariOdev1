@@ -17,7 +17,7 @@
 class Matris {
 public:
 
-  Matris(std::size_t height = 10, std::size_t width = 10) {
+  Matris(std::size_t height = Random::get(1, 10), std::size_t width = Random::get(1, 10)) {
     // for now I'm just gonna use an assert to check the height and width
     assert(height <= 10 && width <= 10 && "height/width is above 10");
 
