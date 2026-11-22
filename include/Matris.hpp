@@ -41,21 +41,21 @@ public:
   // row starts from 1 till n
   void deleteRow(const int& row);
 
-  // column starts from 1 till n
-  void columnSwap(const std::size_t& column1, const std::size_t& column2);
-
-  // row starts from 1 till n
-  void rowSwap(const int& row1, const int& row2);
+  void satirSutunDeg(Screen& s, bool& isMatris);
 
   // gives the aritmetik ortalama of the matris
   double aritOrt() const;
 
-  void secM(); // secilen matris
-
   void swap(Matris& m1); // this would swapt the matris
 
   void push(const int& veri);
+
+  void printMatrisMenu(Screen& s);
+  void printSatirSilM(Screen& s);
+  void printSutunSilM(Screen& s);
+  void printSSDegM(Screen& s, const bool& isSatir);
   void print(Screen& s, const std::size_t& selectedD);
+  void printAll(Screen& s, const char& usrInput, bool& isMatris);
 
   MatrisDugum*  getIlk() { return m_ilk; }
   std::size_t   getH()   { return m_height; }

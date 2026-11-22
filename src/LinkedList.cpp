@@ -194,25 +194,6 @@ void LinkedList::remove() {
 
 
 
-//-------------------------secMatris-------------------------------
-
-
-
-void LinkedList::secMatris(const std::size_t& selectedD) {
-  std::size_t len {getLen()};
-
-  if(selectedD > len || selectedD < 1) throw std::out_of_range("Error secMatris(selectedD): selectedD is out of range");
-  
-  Dugum* gec {m_ilk};
-  for(std::size_t i{1}; i < selectedD; ++i) {
-    gec = gec->sonra;
-  }
-
-  gec->matris.secM();
-}
-
-
-
 //-------------------------getLen----------------------------------
 
 
@@ -361,10 +342,10 @@ void LinkedList::printMatris(Screen& s, const std::size_t& selectedD) {
 void LinkedList::printMenu(Screen& s) {
   s.save(1, 60, "|---- Dugum gezilimi aktif -----------|");
   s.save(2, 60, "|    w/s tuslari ile gezebilirsiniz   |");
-  s.save(3, 60, "|    q tusu ile one dugum ekle        |");
-  s.save(4, 60, "|    e tusu ile arkaya dugum ekle     |");
-  s.save(5, 60, "|    f tusu ile dugum secilebilir     |");
-  s.save(6, 60, "|    k tusu ile programi kapat        |");
+  s.save(3, 60, "|    q Tusu ile one dugum ekle        |");
+  s.save(4, 60, "|    e Tusu ile arkaya dugum ekle     |");
+  s.save(5, 60, "|    f Tusu ile dugum secilebilir     |");
+  s.save(6, 60, "|    x Tusu ile programi kapat        |");
   s.save(7, 60, "|-------------------------------------|");
 }
 
@@ -374,31 +355,64 @@ void LinkedList::printMenu(Screen& s) {
 
 
 
-void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selectedD, const char& usrInput) {
+void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selectedD, const char& usrInput, bool& isRunning) {
+  s.clear();
+
+  // puts a separator at the start of the page
+    s.save(1, 0, "--------------------------------------------------");
+    // puts a separated at the end of the page
+    s.save(43, 0, "--------------------------------------------------");
+
   std::size_t listLen {getLen()};
+  static bool isMatris {false};
 
-  switch(usrInput) {
-  case 'w':
-    if(selectedD > 1) --selectedD; // 1 is the first dugum
-    break;
-  case 's':
-    if(selectedD < listLen) ++selectedD;
-    break;
-  case 'q':
-    addLower(selectedD);
-    break;
-  case 'e':
-    addUpper(selectedD);
-    break;
-  case 'f':
-    secMatris(selectedD);
-    break;
-  default: break;
+  // I could have made this as enum but I have already done it and I don't feel like changing it
+  if(!isMatris) {
+    switch(usrInput) {
+    case 'w':
+      if(selectedD > 1) --selectedD; // 1 is the first dugum
+      break;
+
+    case 's':
+      if(selectedD < listLen) ++selectedD;
+      break;
+
+    case 'q':
+      addLower(selectedD);
+      break;
+
+    case 'e':
+      addUpper(selectedD);
+      break;
+
+    case 'f':
+      isMatris = true;
+      break;
+
+    case 'x':
+      isRunning = false;
+      break;
+    default: break;
+    }
   }
-
-  orderL();
   listPage = (selectedD - 1) / 5 + 1; // this would turn the page if needed
-  printMenu  (s);
+  if(!isMatris)
+    orderL();
+
   printD     (s, listPage);
   printMatris(s, selectedD);
+
+  if(isMatris) {
+    Dugum* gec {m_ilk};
+
+    // we are checking the selectedD in the switch case so 
+    // it should be fine to just use it without checking
+    for(std::size_t i{1}; i < selectedD; ++i) gec = gec->sonra;
+
+    gec->matris.printAll(s, usrInput, isMatris);
+  }
+  if(!isMatris) {
+    s.clearMenu();
+    printMenu(s);
+  }
 }

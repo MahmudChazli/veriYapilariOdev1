@@ -11,6 +11,7 @@
 #include "../include/Common.hpp"
 #include "../include/Matris.hpp"
 #include <windows.h>
+#include <cctype>
 
 
 
@@ -98,101 +99,112 @@ void Matris::deleteRow(const int& row) {
 
 
 
-//-------------------------------------swap------------------------------------------
+//-------------------------------satirSutunDeg---------------------------------------------
 
 
 
-// there is probably a better way to do this but this is the first thing that I could think of
-// column starts from 1 till n
-void Matris::columnSwap(const std::size_t& column1, const std::size_t& column2) {
-  if(column1 <= 0 || column1 > m_width || column2 <= 0 || column2 > m_width) throw std::out_of_range("Boyle bir sutun yok.");
+void Matris::satirSutunDeg(Screen& s, bool& isMatris) {
 
-  std::size_t fIndex {column1 - 1}; // first column index
-  std::size_t sIndex {column2 - 1}; // second column index
+  if(m_width == m_height) {
 
-  int* fColumn {new int[m_height]};
-  int* sColumn {new int[m_height]};
+    std::size_t usrInput  {};
+    std::size_t sutunSwap {};
+    int satirSwap {};
 
-  MatrisDugum* gec {m_ilk};
-  for(std::size_t i{0}, fI{0}, sI{0}; i < m_len; ++i) {
+    bool isSatir {true};
+    while(true) {
+      s.clearMenu();
+      printSSDegM(s, isSatir);
+      s.print();
 
-    if(i % m_width == fIndex) {
-      fColumn[fI] = gec->get();
-      ++fI;
+      std::cin >> usrInput;
+
+      // flush the intput stream if it has an error
+      if(std::cin.fail()) {
+        std::cin.clear();
+      }
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+      if(usrInput == 0) {
+        isMatris = false;
+        break;
+      }
+
+      if(isSatir) {
+        if(usrInput <= m_height) {
+          satirSwap = usrInput;
+          isSatir = false;
+          continue;
+        }
+
+      }else if(usrInput <= m_width) {
+
+        // if we want to swap a row and a column with
+        // each other they would have to be opposite of each other
+        // (a12 and a21 would swap just fine)
+        if(usrInput == satirSwap) {
+          sutunSwap = usrInput;
+          break;
+        }
+      }
+      MessageBoxW(
+        NULL, 
+        L"Verilen aralik arasinda secmelisiniz",
+        L"Error!",
+        MB_ICONEXCLAMATION | MB_OK
+      );
     }
 
-    if(i % m_width == sIndex) {
-      sColumn[sI] = gec->get();
-      ++sI;
-    }
 
-    gec = gec->sonra;
+    if(satirSwap && sutunSwap) {
+      std::size_t satirI {(satirSwap - 1) * m_width}; // Satir Index
+      std::size_t sutunI {sutunSwap - 1}; // Sutun Index
+
+      int* satir {new int[m_width]};
+      int* sutun {new int[m_height]};
+
+      MatrisDugum* gec {m_ilk};
+
+      // this brings the gec to where satir starts
+      for(std::size_t i{0}; i < satirI; ++i) gec = gec->sonra;
+
+      for(std::size_t i{satirI}; i < (satirI + m_width); ++i) {
+        satir[i % m_width] = gec->get();
+        gec = gec->sonra;
+      }
+      gec = m_ilk;
+
+      for(std::size_t i{0}, sI{0}; i < m_len; ++i) {
+
+        if(i % m_width == sutunI) {
+          sutun[sI] = gec->get();
+          gec->push(satir[sI]);
+
+          ++sI;
+        }
+
+        gec = gec->sonra;
+      }
+
+      gec = m_ilk;
+      // this brings the gec to where satir starts
+      for(std::size_t i{0}; i < satirI; ++i) gec = gec->sonra;
+
+      for(std::size_t i{satirI}; i < (satirI + m_width); ++i) {
+        gec->push(sutun[i % m_width]);
+        gec = gec->sonra;
+      }
+      delete[] satir;
+      delete[] sutun;
+    }
+  }else {
+    MessageBoxW(
+      NULL, 
+      L"Kare Matris Olmayan Bir Matris Satir Sutun Degistirilemez",
+      L"Error!",
+      MB_ICONEXCLAMATION | MB_OK
+    );
   }
-
-  gec = m_ilk;
-
-  for(std::size_t i{0}, fI{0}, sI{0}; i < m_len; ++i) {
-
-    if(i % m_width == fIndex) {
-      gec->push(sColumn[sI]);
-      ++sI;
-    }
-
-    if(i % m_width == sIndex) {
-      gec->push(fColumn[fI]);
-      ++fI;
-    }
-
-    gec = gec->sonra;
-  }
-  delete[] fColumn;
-  delete[] sColumn;
-}
-
-// row starts from 1 till n
-void Matris::rowSwap(const int& row1, const int& row2) {
-  if( row1 <= 0 || row1 > m_height || row2 <= 0 || row2 > m_height ) throw std::out_of_range("Boyle bir satir yok.");
-
-  MatrisDugum* gec {m_ilk};
-
-  int fIndex {(row1 - 1) * (int)m_width}; // first row index
-  int sIndex {(row2 - 1) * (int)m_width}; // second row index
-
-  int* fRow {new int[m_width]};
-  int* sRow {new int[m_width]};
-
-  // fI = first index; sI = second index;
-  for(std::size_t i{0}, fI{0}, sI{0}; i < m_len; ++i) {
-    if(i >= fIndex && i < (fIndex + (int)m_width)) {
-      fRow[fI] = gec->get();
-      ++fI;
-    }
-    if(i >= sIndex && i < (sIndex + (int)m_width)) {
-      sRow[sI] = gec->get();
-      ++sI;
-    }
-    gec = gec->sonra;
-  }
-
-  gec = m_ilk;
-
-  // I think I could have done this better like
-  // by adding another index variable in the previews 
-  // for loop but that would hinder readability
-  for(std::size_t i{0}, fI{0}, sI{0}; i < m_len; ++i) {
-    if(i >= fIndex && i < (fIndex + (int)m_width)) {
-      gec->push(sRow[sI]);
-      ++sI;
-    }
-
-    if(i >= sIndex && i < (sIndex + (int)m_width)) {
-      gec->push(fRow[fI]);
-      ++fI;
-    }
-    gec = gec->sonra;
-  }
-  delete[] fRow;
-  delete[] sRow;
 }
 
 
@@ -226,12 +238,83 @@ void Matris::push(const int& veri) {
       gec = gec->sonra;
     }
     gec->sonra = new MatrisDugum(veri);
+    gec->sonra->once = gec;
   }
 }
 
 
 
-//-------------------------printM----------------------------------
+//-------------------------printMatrisMenu-------------------------
+
+
+
+void Matris::printMatrisMenu(Screen& s) {
+  s.save(1, 60, "|---- Dugum islemleri aktif ----------|");
+  s.save(2, 60, "|   1 Tusu ile Satir silin            |");
+  s.save(3, 60, "|   2 Tusu ile Sutun silin            |");
+  s.save(4, 60, "|   3 Tusu ile Satir sutun degistirin |");
+  s.save(5, 60, "|   x Tusu ile dugum gezimine gidin   |");
+  s.save(6, 60, "|-------------------------------------|");
+}
+
+
+
+//-------------------------printSatirSilMenu--------------------------
+
+
+
+void Matris::printSatirSilM(Screen& s) {
+  s.save(1, 60, "|---- Satir Silme Aktif -------------|");
+  s.save(2, 60, "|   w/s Tuslari ile gezebilirisiniz  |");
+  s.save(3, 60, "|   d Tusu ile secili satir silin    |");
+  s.save(4, 60, "|   x Tusu ile dugum gezimine gidin  |");
+  s.save(5, 60, "|------------------------------------|");
+}
+
+
+
+//-------------------------printSutunSilMenu--------------------------
+
+
+
+void Matris::printSutunSilM(Screen& s) {
+  s.save(1, 60, "|---- Sutun Silme Aktif -------------|");
+  s.save(2, 60, "|   a/d Tuslari ile gezebilirisiniz  |");
+  s.save(3, 60, "|   f Tusu ile secili satir silin    |");
+  s.save(4, 60, "|   x Tusu ile dugum gezimine gidin  |");
+  s.save(5, 60, "|------------------------------------|");
+}
+
+
+
+
+//-------------------------printSSDegMenu--------------------------
+
+
+
+void Matris::printSSDegM(Screen& s, const bool& isSatir) {
+
+  s.save(1, 60, "|---- Satir Sutun Degisitir Aktif ---|");
+
+  s.save(3, 60, "|     0 Tusu ile programi kapat      |");
+  s.save(4, 60, "|------------------------------------|");
+
+  std::string save   {"|   1 - "};
+  if(isSatir) {
+    std::string widthS {std::to_string(m_width)};
+    save += widthS + " arasi Satir numarasi gir";
+
+  }else {
+    std::string hight {std::to_string(m_height)};
+    save += hight + " arasi Sutun numarasi gir";
+  }
+  s.save(2, 60, save);
+  s.save(2, 97, "|");
+}
+
+
+
+//-------------------------print-----------------------------------
 
 
 
@@ -266,12 +349,76 @@ void Matris::print(Screen& s, const std::size_t& selectedD) {
 
 
 
-//--------------------------------swap-----------------------------------------------
+//-------------------------printAll--------------------------------
 
 
 
-void Matris::secM() {
+void Matris::printAll(Screen& s, const char& usrInput,  bool& isMatris) {
+  enum class State { Menu, SatirS, SutunS, SSDeg };
+  static State state {State::Menu};
 
+  // the teacher had it that x would always bring them back to dugum gezim
+  if(usrInput == 'x') {
+    isMatris = false;
+    state = State::Menu;
+  }
+
+  switch(state) {
+  case State::Menu:
+    switch(usrInput) {
+    case '1': state = State::SatirS;
+      break;
+    case '2': state = State::SutunS;
+      break;
+    case '3': state = State::SSDeg;
+      break;
+    default: break;
+    }
+    break;
+
+  case State::SatirS:
+    switch(usrInput) {
+    case 'w':
+      break;
+
+    case 's': 
+      break;
+      
+    case 'd':
+      break;
+
+    default: break;
+    }
+    break;
+
+  case State::SutunS:
+    break;
+
+  case State::SSDeg:
+    break;
+
+  default: break;
+  }
+  
+  switch(state) {
+  case State::Menu:
+    printMatrisMenu(s);
+    break;
+
+  case State::SatirS:
+    printSatirSilM(s);
+    break;
+  
+  case State::SutunS:
+    printSutunSilM(s);
+    break;
+
+  case State::SSDeg:
+    satirSutunDeg(s, isMatris);
+    printMatrisMenu(s);
+    state = State::Menu;
+    break;
+  }
 }
 
 

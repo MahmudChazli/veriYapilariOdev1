@@ -27,8 +27,6 @@ public:
   void addUpper(std::size_t& selectedD);
   void remove();
 
-  void secMatris(const std::size_t& selectedM);
-
   std::size_t getLen();
 
   // orders the list according to aritOrt
@@ -42,7 +40,7 @@ public:
 
   void printMenu(Screen& s);
 
-  void printAll(Screen& s, std::size_t& listPage, std::size_t& selectedD, const char& usrInput);
+  void printAll(Screen& s, std::size_t& listPage, std::size_t& selectedD, const char& usrInput, bool& isRunning);
   
   Dugum* getIlk() const { return m_ilk; };
   

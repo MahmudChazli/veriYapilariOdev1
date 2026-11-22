@@ -21,6 +21,7 @@ public:
   };
 
   void clear();
+  void clearMenu();
   void save(const std::size_t& row, const std::size_t& col, std::string_view text);
   void print();
 

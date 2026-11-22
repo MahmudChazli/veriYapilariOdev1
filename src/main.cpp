@@ -21,38 +21,23 @@ int main() {
   char usrInput  {};
 
   bool isRunning {true};
-  while(isRunning) {
-    s.clear();
-    
+  while(true) {
+    list.printAll(s, page, selectedD, usrInput, isRunning);
+    if(!isRunning) break;
+
     // Source - https://stackoverflow.com/a/32008479
     std::cout << "\033[2J\033[1;1H";
-
-    
-    // puts a separator at the start of the page
-    s.save(1, 0, "--------------------------------------------------");
-
-    
-    list.printAll(s, page, selectedD, usrInput);
-
-
-    // puts a separated at the end of the page
-    s.save(43, 0, "--------------------------------------------------");
 
     s.print();
 
     std::cin >> usrInput;
+    usrInput = std::tolower(usrInput);
     
     // flush the intput stream if it has an error
     if(std::cin.fail()) {
       std::cin.clear();
     }
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-
-    if(usrInput == 'k') {
-      isRunning = false;
-      // the command to save the list would run here as list.save();
-    }
   }
   
   return 0;
