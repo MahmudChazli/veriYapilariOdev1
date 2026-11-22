@@ -27,13 +27,7 @@ public:
     m_len    = height * width;
   };
 
-  ~Matris() {
-    while(m_ilk) {
-      MatrisDugum* sil {m_ilk};
-      m_ilk = m_ilk->sonra;
-      delete sil;
-    }
-  }
+  ~Matris();
 
   void saveVeri(std::string& m);
 

@@ -21,16 +21,8 @@ public:
     m_ilk = new Dugum();
     load();
   }
-  // in the futre I might change it to be a circular dynamic list
-  // but for now it's only a two way dynamic list
-  ~LinkedList() {
-    Dugum* gec {m_ilk};
-    while(gec) {
-      Dugum* sil {gec};
-      gec = gec->sonra;
-      delete sil;
-    }
-  }
+
+  ~LinkedList();
 
   void load();
   void save();

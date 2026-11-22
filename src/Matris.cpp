@@ -15,6 +15,20 @@
 
 
 
+//-------------------------destructer------------------------------------------------
+
+
+
+Matris::~Matris() {
+  while(m_ilk) {
+    MatrisDugum* sil {m_ilk};
+    m_ilk = m_ilk->sonra;
+    delete sil;
+  }
+}
+
+
+
 //--------------------------------saveVeri-------------------------------------------
 
 
@@ -72,6 +86,14 @@ void Matris::deleteColumn(const std::size_t& column) {
   }
   m_len -= m_height;
   --m_width; // we change the width since we deleted a column
+  if(m_width != m_height) {
+    MessageBoxW(
+      NULL, 
+      L"Matris Kare Matris Degildir.",
+      L"Error!",
+      MB_ICONEXCLAMATION | MB_OK
+    );
+  }
 }
 
 // row = 1 den width kadar gider
@@ -109,6 +131,14 @@ void Matris::deleteRow(const int& row) {
   }
   m_len -= m_width;
   --m_height; // we change the height since we deleted a row
+  if(m_width != m_height) {
+    MessageBoxW(
+      NULL, 
+      L"Matris Kare Matris Degildir.",
+      L"Error!",
+      MB_ICONEXCLAMATION | MB_OK
+    );
+  }
 }
 
 
@@ -688,7 +718,8 @@ void Matris::generate() {
   }
   m_len = m_height * m_width;
   
-  // the teacher wanted an error case for this for some reason
+  // the teacher wanted an error case check I know this doesn't
+  // do anything I just added it because the teacher wanted it
   switch(m_len) {
   case 4:
   case 9:
