@@ -38,6 +38,8 @@ public:
   // print matris
   void printMatris(Screen& s, const std::size_t& selectedD);
 
+  void printMD(Screen& s, const std::size_t listPage, const std::size_t& selectedD);
+
   void printMenu(Screen& s);
 
   void printAll(Screen& s, std::size_t& listPage, std::size_t& selectedD, const char& usrInput, bool& isRunning);

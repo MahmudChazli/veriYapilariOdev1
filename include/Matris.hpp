@@ -51,11 +51,11 @@ public:
   void push(const int& veri);
 
   void printMatrisMenu(Screen& s);
-  void printSatirSilM(Screen& s);
-  void printSutunSilM(Screen& s);
-  void printSSDegM(Screen& s, const bool& isSatir);
-  void print(Screen& s, const std::size_t& selectedD);
-  void printAll(Screen& s, const char& usrInput, bool& isMatris);
+  void printSatirSilM (Screen& s);
+  void printSutunSilM (Screen& s);
+  void printSSDegM    (Screen& s);
+  void print          (Screen& s, const std::size_t& selectedD);
+  void printAll       (Screen& s, const char& usrInput, bool& isMatris);
 
   MatrisDugum*  getIlk() { return m_ilk; }
   std::size_t   getH()   { return m_height; }

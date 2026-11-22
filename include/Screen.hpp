@@ -26,9 +26,9 @@ public:
   void print();
 
 private:
-  const std::size_t m_rowS {44};
-  const std::size_t m_colS {100};
-  char m_screen[45][100]; // initialize the screen with y = 50, x = 100
+  const std::size_t m_rowS {45};
+  const std::size_t m_colS {99};
+  char m_screen[45][100]; // initialize the screen with y = 45, x = 100
 
 };
 

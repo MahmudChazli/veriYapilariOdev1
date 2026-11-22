@@ -335,6 +335,25 @@ void LinkedList::printMatris(Screen& s, const std::size_t& selectedD) {
 
 
 
+//-------------------------printMD---------------------------------
+
+
+
+void LinkedList::printMD(Screen& s, const std::size_t listPage, const std::size_t& selectedD) {
+  s.clear();
+
+  // puts a separator at the start of the page
+  s.save(1, 0, "--------------------------------------------------");
+
+  // puts a separated at the end of the page
+  s.save(43, 0, "--------------------------------------------------");
+
+  printD     (s, listPage);
+  printMatris(s, selectedD);
+}
+
+
+
 //-------------------------printMenu-------------------------------
 
 
@@ -356,13 +375,6 @@ void LinkedList::printMenu(Screen& s) {
 
 
 void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selectedD, const char& usrInput, bool& isRunning) {
-  s.clear();
-
-  // puts a separator at the start of the page
-    s.save(1, 0, "--------------------------------------------------");
-    // puts a separated at the end of the page
-    s.save(43, 0, "--------------------------------------------------");
-
   std::size_t listLen {getLen()};
   static bool isMatris {false};
 
@@ -398,10 +410,7 @@ void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selecte
   listPage = (selectedD - 1) / 5 + 1; // this would turn the page if needed
   if(!isMatris)
     orderL();
-
-  printD     (s, listPage);
-  printMatris(s, selectedD);
-
+  printMD(s, listPage, selectedD);
   if(isMatris) {
     Dugum* gec {m_ilk};
 
@@ -410,6 +419,8 @@ void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selecte
     for(std::size_t i{1}; i < selectedD; ++i) gec = gec->sonra;
 
     gec->matris.printAll(s, usrInput, isMatris);
+    printMD(s, listPage, selectedD);
+    gec->matris.printMatrisMenu(s);
   }
   if(!isMatris) {
     s.clearMenu();

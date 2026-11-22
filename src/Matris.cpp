@@ -111,10 +111,13 @@ void Matris::satirSutunDeg(Screen& s, bool& isMatris) {
     std::size_t sutunSwap {};
     int satirSwap {};
 
-    bool isSatir {true};
-    while(true) {
+    bool isInput {false};
+    while(!isInput) {
       s.clearMenu();
-      printSSDegM(s, isSatir);
+      printSSDegM(s);
+
+      std::cout << "\033[2J\033[1;1H";
+
       s.print();
 
       std::cin >> usrInput;
@@ -122,6 +125,16 @@ void Matris::satirSutunDeg(Screen& s, bool& isMatris) {
       // flush the intput stream if it has an error
       if(std::cin.fail()) {
         std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        MessageBoxW(
+          NULL, 
+          L"Verilen aralik arasinda secmelisiniz",
+          L"Error!",
+          MB_ICONEXCLAMATION | MB_OK
+        );
+        
+        continue;
       }
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -130,33 +143,22 @@ void Matris::satirSutunDeg(Screen& s, bool& isMatris) {
         break;
       }
 
-      if(isSatir) {
-        if(usrInput <= m_height) {
-          satirSwap = usrInput;
-          isSatir = false;
-          continue;
-        }
 
-      }else if(usrInput <= m_width) {
+      if(usrInput <= m_height) {
+        satirSwap = sutunSwap = usrInput;
+        isInput = true;
 
-        // if we want to swap a row and a column with
-        // each other they would have to be opposite of each other
-        // (a12 and a21 would swap just fine)
-        if(usrInput == satirSwap) {
-          sutunSwap = usrInput;
-          break;
-        }
+      }else {
+        MessageBoxW(
+          NULL, 
+          L"Verilen aralik arasinda secmelisiniz",
+          L"Error!",
+          MB_ICONEXCLAMATION | MB_OK
+        );
       }
-      MessageBoxW(
-        NULL, 
-        L"Verilen aralik arasinda secmelisiniz",
-        L"Error!",
-        MB_ICONEXCLAMATION | MB_OK
-      );
     }
 
-
-    if(satirSwap && sutunSwap) {
+    if(satirSwap) {
       std::size_t satirI {(satirSwap - 1) * m_width}; // Satir Index
       std::size_t sutunI {sutunSwap - 1}; // Sutun Index
 
@@ -197,6 +199,7 @@ void Matris::satirSutunDeg(Screen& s, bool& isMatris) {
       delete[] satir;
       delete[] sutun;
     }
+    
   }else {
     MessageBoxW(
       NULL, 
@@ -292,22 +295,16 @@ void Matris::printSutunSilM(Screen& s) {
 
 
 
-void Matris::printSSDegM(Screen& s, const bool& isSatir) {
+void Matris::printSSDegM(Screen& s) {
 
   s.save(1, 60, "|---- Satir Sutun Degisitir Aktif ---|");
 
-  s.save(3, 60, "|     0 Tusu ile programi kapat      |");
+  s.save(3, 60, "|   0 Tusu ile dugum gezimini gidin  |");
   s.save(4, 60, "|------------------------------------|");
 
-  std::string save   {"|   1 - "};
-  if(isSatir) {
-    std::string widthS {std::to_string(m_width)};
-    save += widthS + " arasi Satir numarasi gir";
-
-  }else {
-    std::string hight {std::to_string(m_height)};
-    save += hight + " arasi Sutun numarasi gir";
-  }
+  std::string save   {"|  1 - "};
+  std::string widthS {std::to_string(m_width)};
+  save += widthS + " arasi Satir/Sutun sec";
   s.save(2, 60, save);
   s.save(2, 97, "|");
 }
@@ -406,6 +403,7 @@ void Matris::printAll(Screen& s, const char& usrInput,  bool& isMatris) {
     break;
 
   case State::SatirS:
+    s.clearMenu();
     printSatirSilM(s);
     break;
   
@@ -415,7 +413,6 @@ void Matris::printAll(Screen& s, const char& usrInput,  bool& isMatris) {
 
   case State::SSDeg:
     satirSutunDeg(s, isMatris);
-    printMatrisMenu(s);
     state = State::Menu;
     break;
   }

@@ -32,8 +32,10 @@ void Screen::clear() {
 
 
 void Screen::clearMenu() {
+  std::size_t menuStartingCol {60};
+  
   for(std::size_t i{1}; i < (m_rowS / 2); ++i) {
-    for(std::size_t j{60}; j <= m_colS; ++j) {
+    for(std::size_t j{menuStartingCol}; j <= m_colS; ++j) {
       m_screen[i][j] = ' ';
     }
   }
