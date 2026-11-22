@@ -21,11 +21,22 @@ public:
     m_ilk = new Dugum();
     load();
   }
+  // in the futre I might change it to be a circular dynamic list
+  // but for now it's only a two way dynamic list
+  ~LinkedList() {
+    Dugum* gec {m_ilk};
+    while(gec) {
+      Dugum* sil {gec};
+      gec = gec->sonra;
+      delete sil;
+    }
+  }
 
   void load();
   void addLower(const std::size_t& selectedD);
   void addUpper(std::size_t& selectedD);
-  void remove();
+  
+  void remove(Dugum* gec);
 
   std::size_t getLen();
 
@@ -45,18 +56,6 @@ public:
   void printAll(Screen& s, std::size_t& listPage, std::size_t& selectedD, const char& usrInput, bool& isRunning);
   
   Dugum* getIlk() const { return m_ilk; };
-  
-  // in the futre I might change it to be a circular dynamic list
-  // but for now it's only a two way dynamic list
-  ~LinkedList() {
-    Dugum* gec {m_ilk};
-    Dugum* sil {};
-    while(gec) {
-      sil = gec;
-      gec = gec->sonra;
-      delete sil;
-    }
-  }
 
 private:
   Dugum* m_ilk {};

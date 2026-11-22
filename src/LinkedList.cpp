@@ -176,20 +176,18 @@ void LinkedList::addUpper(std::size_t& selectedD) {
 
 
 
-void LinkedList::remove() {
-  if(!m_ilk) return;
-  if(!m_ilk->sonra) {
-    delete m_ilk;
-    m_ilk = nullptr;
-    return;
-  }
+void LinkedList::remove(Dugum* gec) {
+  Dugum* sonra {gec->sonra};
+  Dugum* once  {gec->once};
 
-  Dugum* gec{m_ilk};
-  while(gec->sonra->sonra) {
-    gec = gec->sonra;
-  }
-  delete gec->sonra;
-  gec->sonra = nullptr;
+  if(once)
+    once->sonra = sonra;
+
+  if(sonra)
+    sonra->once = once;
+
+  if(gec == m_ilk) m_ilk = sonra;
+  delete gec;
 }
 
 
@@ -418,7 +416,13 @@ void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selecte
     // it should be fine to just use it without checking
     for(std::size_t i{1}; i < selectedD; ++i) gec = gec->sonra;
 
-    gec->matris.printAll(s, usrInput, isMatris);
+    bool isDeleteNode {false};
+    gec->matris.printAll(s, selectedD, usrInput, isMatris, isDeleteNode);
+
+    if(isDeleteNode) {
+      if(!gec->sonra) --selectedD;
+      remove(gec);
+    }
     printMD(s, listPage, selectedD);
     gec->matris.printMatrisMenu(s);
   }

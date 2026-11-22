@@ -50,12 +50,15 @@ public:
 
   void push(const int& veri);
 
+  // Menus
   void printMatrisMenu(Screen& s);
   void printSatirSilM (Screen& s);
   void printSutunSilM (Screen& s);
   void printSSDegM    (Screen& s);
+
+  bool printDeleteRow (Screen& s, const std::size_t& selectedD, bool& isMatris);
   void print          (Screen& s, const std::size_t& selectedD);
-  void printAll       (Screen& s, const char& usrInput, bool& isMatris);
+  void printAll       (Screen& s, const std::size_t& selectedD, const char& usrInput, bool& isMatris, bool& isDeleteNode);
 
   MatrisDugum*  getIlk() { return m_ilk; }
   std::size_t   getH()   { return m_height; }
