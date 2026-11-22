@@ -12,6 +12,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <windows.h>
 
 
 
@@ -177,6 +178,18 @@ void LinkedList::addUpper(std::size_t& selectedD) {
 
 
 void LinkedList::remove(Dugum* gec) {
+  if(gec == m_ilk) {
+    if(!gec->sonra) {
+      MessageBoxW(
+        NULL, 
+        L"En az bir matris olmak zorunlu.",
+        L"Error!",
+        MB_ICONEXCLAMATION | MB_OK
+      );
+      return;
+    }
+    m_ilk = gec->sonra;
+  }
   Dugum* sonra {gec->sonra};
   Dugum* once  {gec->once};
 
@@ -186,7 +199,6 @@ void LinkedList::remove(Dugum* gec) {
   if(sonra)
     sonra->once = once;
 
-  if(gec == m_ilk) m_ilk = sonra;
   delete gec;
 }
 
@@ -420,7 +432,11 @@ void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selecte
     gec->matris.printAll(s, selectedD, usrInput, isMatris, isDeleteNode);
 
     if(isDeleteNode) {
-      if(!gec->sonra) --selectedD;
+      if(!gec->sonra) {
+        if(gec != m_ilk)
+          --selectedD;
+      }
+      
       remove(gec);
     }
     printMD(s, listPage, selectedD);
