@@ -114,7 +114,7 @@ void Matris::satirSutunDeg(Screen& s, bool& isMatris) {
     bool isInput {false};
     while(!isInput) {
       s.clearMenu();
-      printSSDegM(s);
+      printRCDegM(s);
 
       std::cout << "\033[2J\033[1;1H";
 
@@ -247,11 +247,11 @@ void Matris::push(const int& veri) {
 
 
 
-//-------------------------printMatrisMenu-------------------------
+//-------------------------printMatrisM---------------------------
 
 
 
-void Matris::printMatrisMenu(Screen& s) {
+void Matris::printMatrisM(Screen& s) {
   s.save(1, 60, "|---- Dugum islemleri aktif ----------|");
   s.save(2, 60, "|   1 Tusu ile Satir silin            |");
   s.save(3, 60, "|   2 Tusu ile Sutun silin            |");
@@ -262,11 +262,11 @@ void Matris::printMatrisMenu(Screen& s) {
 
 
 
-//-------------------------printSatirSilMenu--------------------------
+//-------------------------printDeleteRM---------------------------
 
 
 
-void Matris::printSatirSilM(Screen& s) {
+void Matris::printDeleteRM(Screen& s) {
   s.save(1, 60, "|---- Satir Silme Aktif -------------|");
   s.save(2, 60, "|   w/s Tuslari ile gezebilirisiniz  |");
   s.save(3, 60, "|   d Tusu ile secili satir silin    |");
@@ -276,11 +276,11 @@ void Matris::printSatirSilM(Screen& s) {
 
 
 
-//-------------------------printSutunSilMenu--------------------------
+//-------------------------printDeleteCM----------------------------
 
 
 
-void Matris::printSutunSilM(Screen& s) {
+void Matris::printDeleteCM(Screen& s) {
   s.save(1, 60, "|---- Sutun Silme Aktif -------------|");
   s.save(2, 60, "|   a/d Tuslari ile gezebilirisiniz  |");
   s.save(3, 60, "|   f Tusu ile secili satir silin    |");
@@ -291,11 +291,11 @@ void Matris::printSutunSilM(Screen& s) {
 
 
 
-//-------------------------printSSDegMenu--------------------------
+//-------------------------printRCDegM------------------------------
 
 
 
-void Matris::printSSDegM(Screen& s) {
+void Matris::printRCDegM(Screen& s) {
 
   s.save(1, 60, "|---- Satir Sutun Degisitir Aktif ---|");
 
@@ -311,13 +311,118 @@ void Matris::printSSDegM(Screen& s) {
 
 
 
-//-------------------------printDeleteRow--------------------------
+//-------------------------printDeleteC----------------------------
 
 
 
-bool Matris::printDeleteRow(Screen& s, const std::size_t& selectedD, bool& isMatris) {
+bool Matris::printDeleteC(Screen& s, const std::size_t& selectedD, bool& isMatris) {
   s.clearMenu();
-  printSatirSilM(s);
+  printDeleteCM(s);
+
+  std::size_t times      {0};
+  std::size_t paddingRow {2};
+  std::size_t paddingCol {30};
+  std::size_t topR {((selectedD - 1) % 5) * 8 + paddingRow};
+
+  // deletes the current matris variables
+  for(std::size_t i{0}; i <= m_height; ++i) {
+    for(std::size_t j{30}, width{0}; width < m_width; j += 3, ++width) {
+      s.save(topR + i, j, "  ");
+    }
+  }
+
+  char usrInput {};
+
+  bool isRunning {true};
+  while(isRunning) {
+
+    std::size_t selectedC {paddingCol + times * 3};
+
+    MatrisDugum* gec {m_ilk};
+    for(std::size_t i{0}; i < m_height; ++i) {
+
+      for(std::size_t j {paddingCol}, width{0}; width < m_width; j += 3, ++width) {
+        s.save(topR + i + 1, j, std::to_string(gec->get()));
+        gec = gec->sonra;
+        
+      }
+    }
+    
+
+    s.save(topR, selectedC, "--");
+    s.save(topR + m_height + 1, selectedC, "--");
+
+    for(std::size_t i{0}; i <= m_height + 1; ++i) {
+      for(std::size_t j {paddingCol - 1}, width{0}; width <= m_width; j += 3, ++width) {
+        if(j == selectedC - 1 || j == selectedC + 2)
+          s.save(topR + i, j, "|");
+      }
+    }
+
+
+    std::cout << "\033[2J\033[1;1H";
+
+    s.print();
+    
+
+    std::cin >> usrInput;
+
+    if(std::cin.fail()) {
+      std::cin.clear();
+    }
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if(usrInput == 'x') {
+      isMatris = false;
+      return false;
+    }
+
+    // deletes the current matris variables
+    for(std::size_t i{0}; i <= m_height + 1; ++i) {
+      for(std::size_t j{paddingCol - 1}, width{0}; width <= m_width; j += 3, ++width) {
+        s.save(topR + i, j, "     ");
+      }
+    }
+
+    s.save(topR, paddingCol, " ");
+    switch(usrInput) {
+    case 'a':
+      if(times > 0) --times;
+      break;
+
+    case 'd':
+      if(times < m_width) ++times;
+      break;
+
+    case 'f':
+      if(m_width == 1) {
+        isMatris = false;
+        return true; // we would need to delete the node
+      }
+
+      if(times == m_width) times + 1;
+
+      deleteColumn(times + 1);
+      
+      if(times >= m_width) times = m_width - 1;
+      break;
+
+    default: break;
+    }
+  }
+
+  return false;
+}
+
+
+
+//-------------------------printDeleteR----------------------------
+
+
+
+bool Matris::printDeleteR(Screen& s, const std::size_t& selectedD, bool& isMatris) {
+  s.clearMenu();
+  printDeleteRM(s);
 
   std::size_t times      {0};
   std::size_t paddingRow {3};
@@ -437,7 +542,7 @@ void Matris::print(Screen& s, const std::size_t& selectedD) {
   MatrisDugum* gec {m_ilk};
   for(std::size_t i{0}; i < m_height; ++i) {
 
-    for(std::size_t j {paddingCol}, times{0}; times < m_width; j += 3, ++times) {
+    for(std::size_t j {paddingCol}, width{0}; width < m_width; j += 3, ++width) {
 
       s.save(row + i, j, std::to_string(gec->get()));
 
@@ -484,15 +589,15 @@ void Matris::printAll(Screen& s, const std::size_t& selectedD, const char& usrIn
   
   switch(state) {
   case State::Menu:
-    printMatrisMenu(s);
+    printMatrisM(s);
     break;
 
   case State::SatirS:
-    isDeleteNode = printDeleteRow(s, selectedD, isMatris);
+    isDeleteNode = printDeleteR(s, selectedD, isMatris);
     break;
   
   case State::SutunS:
-    printSutunSilM(s);
+    isDeleteNode = printDeleteC(s, selectedD, isMatris);
     break;
 
   case State::SSDeg:

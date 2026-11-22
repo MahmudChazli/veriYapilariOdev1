@@ -424,7 +424,7 @@ void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selecte
       remove(gec);
     }
     printMD(s, listPage, selectedD);
-    gec->matris.printMatrisMenu(s);
+    gec->matris.printMatrisM(s);
   }
   if(!isMatris) {
     s.clearMenu();
