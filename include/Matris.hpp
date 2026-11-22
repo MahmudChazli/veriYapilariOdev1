@@ -35,13 +35,15 @@ public:
     }
   }
 
+  void saveVeri(std::string& m);
+
   // for the column delete we would add m_width after every deleted variable and column start from 1 till n
   void deleteColumn(const std::size_t& column);
   
   // row starts from 1 till n
   void deleteRow(const int& row);
 
-  void satirSutunDeg(Screen& s, bool& isMatris);
+  void satirSutunDeg(Screen& s);
 
   // gives the aritmetik ortalama of the matris
   double aritOrt() const;

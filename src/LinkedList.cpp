@@ -16,13 +16,13 @@
 
 
 
-//-------------------------load---------------------------------
+//-------------------------load-------------------------------------
 
 
 // this was easier than I thought
 void LinkedList::load() {
   // Source - https://www.geeksforgeeks.org/cpp/how-to-read-from-a-file-in-cpp/
-  std::ifstream f("lib/kayitlar.txt");
+  std::ifstream f("data/kayitlar.txt");
 
   // Check if the file was opened successfully
   if (!f.is_open()) {
@@ -91,6 +91,30 @@ void LinkedList::load() {
 
   // Close the file
   f.close();
+}
+
+
+
+//-------------------------save-------------------------------------
+
+
+
+void LinkedList::save() {
+  std::ofstream outfile("data/kayitlar.txt", std::ios::trunc);
+  std::string matris {};
+
+  Dugum* gec {m_ilk};
+  while(gec) {
+    matris += std::to_string(gec->matris.getH()) + " ";
+    matris += std::to_string(gec->matris.getW()) + " ";
+
+    gec->matris.saveVeri(matris);
+    outfile << matris << '\n';
+    matris = "";
+    gec = gec->sonra;
+  }
+
+  outfile.close();
 }
 
 
@@ -418,8 +442,11 @@ void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selecte
     }
   }
   listPage = (selectedD - 1) / 5 + 1; // this would turn the page if needed
+
+  // there probably is a better way to do this
   if(!isMatris)
     orderL();
+
   printMD(s, listPage, selectedD);
   if(isMatris) {
     Dugum* gec {m_ilk};
@@ -436,9 +463,10 @@ void LinkedList::printAll(Screen& s, std::size_t& listPage, std::size_t& selecte
         if(gec != m_ilk)
           --selectedD;
       }
-      
+
       remove(gec);
     }
+    orderL();
     printMD(s, listPage, selectedD);
     gec->matris.printMatrisM(s);
   }

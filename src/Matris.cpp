@@ -15,6 +15,20 @@
 
 
 
+//--------------------------------saveVeri-------------------------------------------
+
+
+
+void Matris::saveVeri(std::string& m) {
+  MatrisDugum* gec {m_ilk};
+  while(gec) {
+    m += std::to_string(gec->get()) + " ";
+    gec = gec->sonra;
+  }
+}
+
+
+
 //--------------------------------delete---------------------------------------------
 
 
@@ -103,7 +117,7 @@ void Matris::deleteRow(const int& row) {
 
 
 
-void Matris::satirSutunDeg(Screen& s, bool& isMatris) {
+void Matris::satirSutunDeg(Screen& s) {
 
   if(m_width == m_height) {
 
@@ -139,7 +153,6 @@ void Matris::satirSutunDeg(Screen& s, bool& isMatris) {
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
       if(usrInput == 0) {
-        isMatris = false;
         break;
       }
 
@@ -601,7 +614,8 @@ void Matris::printAll(Screen& s, const std::size_t& selectedD, const char& usrIn
     break;
 
   case State::SSDeg:
-    satirSutunDeg(s, isMatris);
+    satirSutunDeg(s);
+    isMatris = false;
     break;
   }
 

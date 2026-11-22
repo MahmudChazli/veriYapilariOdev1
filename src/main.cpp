@@ -39,6 +39,7 @@ int main() {
     }
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   }
-  
+
+  list.save();
   return 0;
 }
